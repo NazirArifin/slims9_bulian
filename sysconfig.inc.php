@@ -42,6 +42,7 @@ switch (ENVIRONMENT) {
   case 'development':
     @error_reporting(-1);
     @ini_set('display_errors', true);
+    @error_reporting(E_ERROR | E_PARSE);
     break;
   case 'production':
     @ini_set('display_errors', false);
@@ -612,7 +613,8 @@ if (stripos($_SERVER['PHP_SELF'], '/admin') === false) {
     }
     // set back to en_US on XML
     if (isset($_GET['resultXML']) OR isset($_GET['inXML'])) {
-        $sysconf['default_lang'] = 'en_US';
+        // $sysconf['default_lang'] = 'en_US';
+        $sysconf['default_lang'] = 'id_ID';
     }
 }
 

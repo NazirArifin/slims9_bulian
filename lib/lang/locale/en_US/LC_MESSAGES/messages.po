@@ -4268,3 +4268,7 @@ msgstr ""
 msgid "Uncheck All"
 msgstr ""
 
+#: lib/contents/member.inc.php:985
+msgid "Please inserts your SIMAT's NIS/NIM and PIN/Password"
+msgstr ""
+

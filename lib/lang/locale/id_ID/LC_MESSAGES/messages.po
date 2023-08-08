@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Senayan3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-29 18:51+0700\n"
-"PO-Revision-Date: 2023-05-29 18:51+0700\n"
+"POT-Creation-Date: 2023-08-07 09:20+0700\n"
+"PO-Revision-Date: 2023-08-07 09:21+0700\n"
 "Last-Translator: Arif Syamsudin Budi W. <buitenzorg812@yahoo.com>\n"
 "Language-Team: Arie Nugraha; Hendro Wicaksono; Wardiyono <dicarve@yahoo.com; "
 "hendrowicaksono@yahoo.com; wynerst@gmail.com>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-KeywordsList: __;_ngettext:1,2\n"
 "X-Poedit-Basepath: ../../../../..\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.3.2\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: admin/AJAX_check_id.php:21
@@ -87,7 +87,7 @@ msgstr "Tutup"
 
 #: admin/admin_template/default/index_template.inc.php:94
 #: admin/admin_template/nightmode/index_template.inc.php:89 admin/chat.php:15
-#: lib/contents/chat.php:89 sysconfig.inc.php:738
+#: lib/contents/chat.php:89 sysconfig.inc.php:739
 #: template/akasia-dz/partials/nav.php:10 template/akasia/partials/nav.php:10
 #: template/default/parts/_navbar.php:27 template/default/parts/footer.php:41
 #: template/lightweight/partials/nav.php:10
@@ -176,7 +176,6 @@ msgstr ""
 
 #: admin/admin_template/duedateMail.php:75
 #: admin/admin_template/overdueMail.php:90
-#: plugins/ui3_mail_template/src/overdueMail.php:98
 msgid "days"
 msgstr "hari"
 
@@ -250,15 +249,15 @@ msgstr "Tekan tombol ENTER untuk mengirimkan pesan"
 msgid "Members"
 msgstr "Anggota"
 
-#: admin/default/home.php:35
+#: admin/default/home.php:37
 msgid "Library Administration"
 msgstr "Administrasi Perpustakaan"
 
-#: admin/default/home.php:41
+#: admin/default/home.php:43
 msgid "Database backup process is running, please wait"
 msgstr "Proses pencadangan basis data sedang berlangsung, harap tunggu"
 
-#: admin/default/home.php:58
+#: admin/default/home.php:60
 msgid ""
 "<strong>PHP GD</strong> extension is not installed. Please install it or "
 "application won't be able to create image thumbnail and barcode."
@@ -266,7 +265,7 @@ msgstr ""
 "Ekstensi <strong>PHP GD</strong> belum terpasang. Pastikan PHP GD sudah "
 "terpasang atau aplikasi tidak dapat membuat gambar mini dan Kode batang."
 
-#: admin/default/home.php:62
+#: admin/default/home.php:64
 msgid ""
 "<strong>Freetype</strong> support is not enabled in PHP GD extension. "
 "Rebuild PHP GD extension with Freetype support or application won't be able "
@@ -275,7 +274,7 @@ msgstr ""
 "Dukungan <strong>Freetype</strong> pada PHP GD belum ada. Bangun-ulang PHP "
 "GD dengan dukungan Freetype atau aplikasi tidak dapat membuat Kode batang."
 
-#: admin/default/home.php:69
+#: admin/default/home.php:71
 msgid ""
 "There are currently <strong>{num_overdue}</strong> library members having "
 "overdue. Please check at <b>Circulation</b> module at <b>Overdues</b> "
@@ -285,7 +284,7 @@ msgstr ""
 "memiliki keterlambatan. Lihat modul <b>Sirkulasi</b> pada bagian <b>Daftar "
 "Keterlambatan</b> untuk informasi lebih lanjut"
 
-#: admin/default/home.php:74
+#: admin/default/home.php:76
 msgid ""
 "<strong>Images</strong> directory and directories under it is not writable. "
 "Make sure it is writable by changing its permission or you won't be able to "
@@ -295,7 +294,7 @@ msgstr ""
 "dapat ditulis. Pastikan direktori-direktori ini bisa ditulis atau aplikasi "
 "tidak dapat mengunggah gambar dan membuat Kode batang"
 
-#: admin/default/home.php:78
+#: admin/default/home.php:80
 msgid ""
 "<strong>Repository</strong> directory is not writable. Make sure it is "
 "writable (and all directories under it) by changing its permission or you "
@@ -305,7 +304,7 @@ msgstr ""
 "tidak dapat ditulis. Pastikan direktori-direktori ini bisa ditulis atau "
 "aplikasi tidak bisa mengunggah berkas lampiran untuk data bibliografi."
 
-#: admin/default/home.php:82
+#: admin/default/home.php:84
 msgid ""
 "<strong>File upload</strong> directory is not writable. Make sure it is "
 "writable (and all directories under it) by changing its permission or you "
@@ -316,7 +315,7 @@ msgstr ""
 "tidak dapat ditulis. Pastikan direktori-direktori ini bisa ditulis atau "
 "aplikasi tidak bisa mengunggah berkas, membuat laporan dan cadangan."
 
-#: admin/default/home.php:90
+#: admin/default/home.php:92
 msgid ""
 "Installer folder is still exist inside your server. Please remove it or "
 "rename to another name for security reason."
@@ -324,7 +323,7 @@ msgstr ""
 "Direktori install masih ada di kode sumber Anda. Silahkan hapus atau ubah "
 "menjadi nama lain demi keamanan."
 
-#: admin/default/home.php:102
+#: admin/default/home.php:104
 msgid ""
 "<strong><i>You are logged in as Super User. With great power comes great "
 "responsibility.</i></strong>"
@@ -332,39 +331,39 @@ msgstr ""
 "<strong><i>Anda masuk sebagai Super Admin. Otoritas besar, menuntut tanggung "
 "jawab yang besar pula.</i></strong>"
 
-#: admin/default/home.php:118
+#: admin/default/home.php:120
 msgid "Table"
 msgstr "Tabel"
 
-#: admin/default/home.php:118
+#: admin/default/home.php:120
 msgid "might need to be repaired."
 msgstr "perlu untuk diperbaiki."
 
-#: admin/default/home.php:134
+#: admin/default/home.php:136
 msgid "Click Here To Repair The Tables"
 msgstr "Klik di sini untuk memperbaiki tabel"
 
-#: admin/default/home.php:146
+#: admin/default/home.php:154
 msgid "It looks like today you haven't backup your database."
 msgstr "Hari ini Anda belum membuat cadangan basis data."
 
-#: admin/default/home.php:147 admin/modules/stock_take/init.php:71
+#: admin/default/home.php:155 admin/modules/stock_take/init.php:73
 msgid "Backup Now"
 msgstr "Cadangkan sekarang"
 
-#: admin/default/home.php:180
+#: admin/default/home.php:188
 msgid "Total of Collections"
 msgstr "Total Koleksi"
 
-#: admin/default/home.php:189
+#: admin/default/home.php:197
 msgid "Total of Items"
 msgstr "Total Eksemplar"
 
-#: admin/default/home.php:198
+#: admin/default/home.php:206
 msgid "Lent"
 msgstr "Dipinjamkan"
 
-#: admin/default/home.php:207 admin/modules/bibliography/index.php:848
+#: admin/default/home.php:215 admin/modules/bibliography/index.php:848
 #: admin/modules/bibliography/item.php:323
 #: admin/modules/circulation/reserve_list.php:110
 #: admin/modules/reporting/customs/item_titles_list.php:287
@@ -372,61 +371,61 @@ msgstr "Dipinjamkan"
 msgid "Available"
 msgstr "Tersedia"
 
-#: admin/default/home.php:217
+#: admin/default/home.php:225
 msgid "Latest Transactions"
 msgstr "Transaksi Terkini"
 
-#: admin/default/home.php:220 admin/default/home.php:309
+#: admin/default/home.php:228 admin/default/home.php:317
 #: admin/modules/circulation/loan.php:167
 #: admin/modules/circulation/pop_loan_receipt.php:88
 msgid "Loan"
 msgstr "Pinjam"
 
-#: admin/default/home.php:221 admin/default/home.php:249
-#: admin/default/home.php:314 admin/modules/circulation/loan_list.php:98
+#: admin/default/home.php:229 admin/default/home.php:257
+#: admin/default/home.php:322 admin/modules/circulation/loan_list.php:98
 #: admin/modules/circulation/loan_list.php:114
 #: admin/modules/circulation/pop_loan_receipt.php:141
 #: admin/modules/circulation/quick_return.php:91
 msgid "Return"
 msgstr "Kembali"
 
-#: admin/default/home.php:222 admin/default/home.php:319
+#: admin/default/home.php:230 admin/default/home.php:327
 #: admin/modules/circulation/loan_list.php:98
 #: admin/modules/circulation/loan_list.php:124
 #: admin/modules/membership/index.php:478
 msgid "Extend"
 msgstr "Perpanjang"
 
-#: admin/default/home.php:230
+#: admin/default/home.php:238
 msgid "Summary"
 msgstr "Ringkasan"
 
-#: admin/default/home.php:237 admin/default/home.php:304
+#: admin/default/home.php:245 admin/default/home.php:312
 msgid "Total"
 msgstr "Total"
 
-#: admin/default/home.php:243
+#: admin/default/home.php:251
 msgid "New"
 msgstr "Baru"
 
-#: admin/default/home.php:255 admin/modules/reporting/customs/staff_act.php:113
+#: admin/default/home.php:263 admin/modules/reporting/customs/staff_act.php:113
 msgid "Extends"
 msgstr "Perpanjang"
 
-#: admin/default/home.php:261 admin/default/home.php:324
+#: admin/default/home.php:269 admin/default/home.php:332
 #: admin/modules/reporting/customs/overdued_list.php:219
 msgid "Overdue"
 msgstr "Keterlambatan"
 
-#: admin/default/home.php:431
+#: admin/default/home.php:421
 #: admin/modules/reporting/customs/due_date_warning.php:186
 #: admin/modules/reporting/customs/overdued_list.php:249
-#: admin/modules/stock_take/init.php:82
+#: admin/modules/stock_take/init.php:84
 msgid "Please wait"
 msgstr "Mohon tunggu"
 
-#: admin/default/home.php:439 admin/default/home.php:455
-#: admin/modules/stock_take/init.php:91 lib/contents/forgot.inc.php:93
+#: admin/default/home.php:429 admin/default/home.php:452
+#: admin/modules/stock_take/init.php:93 lib/contents/forgot.inc.php:93
 #: lib/contents/show_detail.inc.php:104
 msgid "Error"
 msgstr "Galat"
@@ -467,10 +466,7 @@ msgstr "Galat"
 #: admin/modules/serial_control/index.php:52
 #: admin/modules/serial_control/kardex.php:47
 #: admin/modules/serial_control/subscription.php:49
-#: plugins/inlislite_copy_cataloging/index.php:35
-#: plugins/label_barcode/index.php:30
-#: plugins/label_mixcode_color_slims-1.0.0-beta-3.4/index.php:34
-#: plugins/read_counter/index.php:40
+#: plugins/label_barcode/index.php:30 plugins/read_counter/index.php:40
 msgid "You are not authorized to view this section"
 msgstr "Anda tidak memiliki wewenang untuk masuk ke bagian ini"
 
@@ -578,8 +574,8 @@ msgstr "Daftar Eksemplar Keluar"
 #: admin/modules/master_file/frequency.php:158
 #: admin/modules/master_file/index.php:161
 #: admin/modules/master_file/index.php:163
-#: admin/modules/master_file/item_status.php:187
-#: admin/modules/master_file/item_status.php:189
+#: admin/modules/master_file/item_status.php:184
+#: admin/modules/master_file/item_status.php:186
 #: admin/modules/master_file/label.php:181
 #: admin/modules/master_file/label.php:183
 #: admin/modules/master_file/location.php:156
@@ -620,12 +616,8 @@ msgstr "Daftar Eksemplar Keluar"
 #: admin/modules/system/module.php:149 admin/modules/system/module.php:151
 #: admin/modules/system/plugins.php:88 admin/modules/system/sys_log.php:86
 #: admin/modules/system/sys_log.php:88 admin/modules/system/user_group.php:194
-#: admin/modules/system/user_group.php:196
-#: plugins/inlislite_copy_cataloging/index.php:126
-#: plugins/inlislite_copy_cataloging/index.php:146
-#: plugins/label_barcode/index.php:294 plugins/label_barcode/index.php:296
-#: plugins/label_mixcode_color_slims-1.0.0-beta-3.4/index.php:81
-#: plugins/label_mixcode_color_slims-1.0.0-beta-3.4/index.php:83
+#: admin/modules/system/user_group.php:196 plugins/label_barcode/index.php:294
+#: plugins/label_barcode/index.php:296
 #: template/akasia-dz/index_template.inc.php:96
 #: template/akasia-dz/index_template.inc.php:208
 #: template/akasia/index_template.inc.php:111
@@ -673,7 +665,6 @@ msgstr "Cari"
 #: lib/contents/download_loan_history.inc.php:61
 #: lib/contents/member.inc.php:380 lib/contents/member.inc.php:488
 #: plugins/label_barcode/index.php:332 plugins/label_barcode/index.php:340
-#: plugins/label_mixcode_color_slims-1.0.0-beta-3.4/index.php:141
 #: plugins/read_counter/index.php:96 plugins/read_counter/report.php:40
 #: plugins/read_counter/report.php:75 plugins/read_counter/report.php:122
 msgid "Item Code"
@@ -708,7 +699,7 @@ msgstr "Kode Eksemplar"
 #: admin/modules/reporting/customs/visitor_list.php:152
 #: admin/modules/reporting/customs/visitor_list.php:202
 #: files/membercard/old/membercard.php:293 lib/contents/member.inc.php:265
-#: lib/contents/member.inc.php:994 template/default/visitor_template.php:64
+#: template/default/visitor_template.php:64
 msgid "Member ID"
 msgstr "ID Anggota"
 
@@ -774,9 +765,7 @@ msgstr "ID Anggota"
 #: lib/contents/download_loan_history.inc.php:62
 #: lib/contents/member.inc.php:381 lib/contents/member.inc.php:411
 #: lib/contents/member.inc.php:489 lib/contents/member.inc.php:524
-#: plugins/inlislite_copy_cataloging/index.php:171
 #: plugins/label_barcode/index.php:332 plugins/label_barcode/index.php:339
-#: plugins/label_mixcode_color_slims-1.0.0-beta-3.4/index.php:142
 #: plugins/read_counter/index.php:96 plugins/read_counter/report.php:36
 #: plugins/read_counter/report.php:75 plugins/read_counter/report.php:122
 #: template/akasia/partials/advsearch.php:16
@@ -831,7 +820,7 @@ msgstr "Tanggal Kembali"
 #: admin/modules/master_file/doc_language.php:239
 #: admin/modules/master_file/frequency.php:260
 #: admin/modules/master_file/index.php:246
-#: admin/modules/master_file/item_status.php:286
+#: admin/modules/master_file/item_status.php:282
 #: admin/modules/master_file/label.php:279
 #: admin/modules/master_file/location.php:241
 #: admin/modules/master_file/p2pservers.php:227
@@ -853,7 +842,6 @@ msgstr "Tanggal Kembali"
 #: admin/modules/system/holiday.php:296 admin/modules/system/module.php:226
 #: admin/modules/system/sys_log.php:142 admin/modules/system/user_group.php:281
 #: plugins/label_barcode/index.php:379
-#: plugins/label_mixcode_color_slims-1.0.0-beta-3.4/index.php:198
 msgid "Found <strong>{result->num_rows}</strong> from your keywords"
 msgstr ""
 "Ditemukan <strong>{result->num_rows}</strong> dari kata kunci yang Anda "
@@ -864,7 +852,6 @@ msgstr ""
 #: admin/modules/bibliography/printed_card.php:91
 #: admin/modules/membership/member_card_generator.php:98
 #: plugins/label_barcode/index.php:99
-#: plugins/label_mixcode_color_slims-1.0.0-beta-3.4/action/generateSession.php:45
 msgid ""
 "Selected items NOT ADDED to print queue. Only {max_print} can be printed at "
 "once"
@@ -878,7 +865,6 @@ msgstr ""
 #: admin/modules/bibliography/printed_card.php:96
 #: admin/modules/membership/member_card_generator.php:103
 #: plugins/label_barcode/index.php:103
-#: plugins/label_mixcode_color_slims-1.0.0-beta-3.4/action/generateSession.php:48
 msgid "Selected items added to print queue"
 msgstr "Berkas terpilih ditambahkan pada antrian cetak"
 
@@ -887,7 +873,6 @@ msgstr "Berkas terpilih ditambahkan pada antrian cetak"
 #: admin/modules/bibliography/printed_card.php:103
 #: admin/modules/membership/member_card_generator.php:55
 #: plugins/label_barcode/index.php:110
-#: plugins/label_mixcode_color_slims-1.0.0-beta-3.4/action/clearSession.php:15
 msgid "Print queue cleared!"
 msgstr "Antrian cetak dihapus!"
 
@@ -898,8 +883,6 @@ msgstr "Antrian cetak dihapus!"
 #: admin/modules/membership/member_card_generator.php:112
 #: admin/modules/membership/member_card_generator.php:116
 #: plugins/label_barcode/index.php:120
-#: plugins/label_mixcode_color_slims-1.0.0-beta-3.4/action/generateLabel.php:15
-#: plugins/label_mixcode_color_slims-1.0.0-beta-3.4/action/generateLabel.php:19
 msgid "There is no data to print!"
 msgstr "Tidak ada data untuk dicetak!"
 
@@ -932,7 +915,6 @@ msgstr ""
 #: admin/modules/bibliography/printed_card.php:308
 #: admin/modules/membership/member_card_generator.php:196
 #: plugins/label_barcode/index.php:285
-#: plugins/label_mixcode_color_slims-1.0.0-beta-3.4/index.php:77
 msgid "Clear Print Queue"
 msgstr "Batalkan Antrian Cetak"
 
@@ -950,7 +932,6 @@ msgstr "Ubah setelan cetak label"
 #: admin/modules/bibliography/printed_card.php:320
 #: admin/modules/membership/member_card_generator.php:207
 #: admin/modules/system/app_user.php:403 plugins/label_barcode/index.php:302
-#: plugins/label_mixcode_color_slims-1.0.0-beta-3.4/index.php:88
 msgid "Maximum"
 msgstr "Maksimum"
 
@@ -959,7 +940,6 @@ msgstr "Maksimum"
 #: admin/modules/bibliography/printed_card.php:320
 #: admin/modules/membership/member_card_generator.php:207
 #: plugins/label_barcode/index.php:302
-#: plugins/label_mixcode_color_slims-1.0.0-beta-3.4/index.php:88
 msgid "records can be printed at once. Currently there is"
 msgstr "cantuman bisa dicetak pada saat bersamaan. Saat ini terdapat"
 
@@ -968,7 +948,6 @@ msgstr "cantuman bisa dicetak pada saat bersamaan. Saat ini terdapat"
 #: admin/modules/bibliography/printed_card.php:324
 #: admin/modules/membership/member_card_generator.php:211
 #: plugins/label_barcode/index.php:308
-#: plugins/label_mixcode_color_slims-1.0.0-beta-3.4/index.php:92
 msgid "in queue waiting to be printed."
 msgstr "dalam antrian menunggu untuk dicetak."
 
@@ -1002,9 +981,8 @@ msgstr "No. Panggil"
 #: admin/modules/bibliography/marcexport.php:256
 #: admin/modules/bibliography/printed_card.php:394
 #: admin/modules/membership/member_card_generator.php:251
-#: plugins/label_barcode/index.php:370
-#: plugins/label_mixcode_color_slims-1.0.0-beta-3.4/index.php:189
-#: plugins/read_counter/index.php:87 template/akasia-dz/visitor_template.php:60
+#: plugins/label_barcode/index.php:370 plugins/read_counter/index.php:87
+#: template/akasia-dz/visitor_template.php:60
 #: template/akasia/visitor_template.php:60
 #: template/lightweight/visitor_template.php:60
 msgid "Add"
@@ -1015,7 +993,6 @@ msgstr "Tambah"
 #: admin/modules/bibliography/printed_card.php:395
 #: admin/modules/membership/member_card_generator.php:252
 #: plugins/label_barcode/index.php:371
-#: plugins/label_mixcode_color_slims-1.0.0-beta-3.4/index.php:190
 msgid "Add To Print Queue"
 msgstr "Tambahkan Dalam Antrian"
 
@@ -1024,7 +1001,6 @@ msgstr "Tambahkan Dalam Antrian"
 #: admin/modules/bibliography/printed_card.php:396
 #: admin/modules/membership/member_card_generator.php:253
 #: plugins/label_barcode/index.php:372
-#: plugins/label_mixcode_color_slims-1.0.0-beta-3.4/index.php:191
 msgid "Add to print queue?"
 msgstr "Tambahkan dalam antrian cetak?"
 
@@ -1037,7 +1013,6 @@ msgstr "Tambahkan dalam antrian cetak?"
 #: admin/modules/master_file/detail_comment.php:117
 #: admin/modules/master_file/visitor_room.php:160
 #: lib/contents/default.inc.php:128 plugins/label_barcode/index.php:380
-#: plugins/label_mixcode_color_slims-1.0.0-beta-3.4/index.php:199
 msgid "Query took"
 msgstr "Permintaan membutuhkan"
 
@@ -1050,7 +1025,6 @@ msgstr "Permintaan membutuhkan"
 #: admin/modules/master_file/detail_comment.php:117
 #: admin/modules/master_file/visitor_room.php:160
 #: lib/contents/default.inc.php:128 plugins/label_barcode/index.php:380
-#: plugins/label_mixcode_color_slims-1.0.0-beta-3.4/index.php:199
 msgid "second(s) to complete"
 msgstr "detik untuk selesai"
 
@@ -1439,7 +1413,7 @@ msgstr ""
 #: admin/modules/master_file/doc_language.php:130
 #: admin/modules/master_file/frequency.php:127
 #: admin/modules/master_file/index.php:133
-#: admin/modules/master_file/item_status.php:158
+#: admin/modules/master_file/item_status.php:155
 #: admin/modules/master_file/label.php:152
 #: admin/modules/master_file/location.php:129
 #: admin/modules/master_file/place.php:132
@@ -1459,7 +1433,7 @@ msgstr "Data berikut tidak bisa dihapus :"
 #: admin/modules/master_file/doc_language.php:137
 #: admin/modules/master_file/frequency.php:134
 #: admin/modules/master_file/index.php:139
-#: admin/modules/master_file/item_status.php:165
+#: admin/modules/master_file/item_status.php:162
 #: admin/modules/master_file/label.php:159
 #: admin/modules/master_file/location.php:134
 #: admin/modules/master_file/p2pservers.php:110
@@ -1486,7 +1460,7 @@ msgstr "Semua Data Berhasil Dihapus"
 #: admin/modules/master_file/doc_language.php:140
 #: admin/modules/master_file/frequency.php:137
 #: admin/modules/master_file/index.php:142
-#: admin/modules/master_file/item_status.php:168
+#: admin/modules/master_file/item_status.php:165
 #: admin/modules/master_file/label.php:162
 #: admin/modules/master_file/location.php:137
 #: admin/modules/master_file/p2pservers.php:113
@@ -1529,7 +1503,6 @@ msgstr "Semua Ruas"
 #: admin/modules/bibliography/marcsru.php:446
 #: admin/modules/bibliography/z3950.php:293
 #: admin/modules/bibliography/z3950sru.php:325
-#: plugins/inlislite_copy_cataloging/index.php:133
 msgid "Title/Series Title"
 msgstr "Judul/Judul Seri"
 
@@ -1543,7 +1516,6 @@ msgstr "Topik"
 #: admin/modules/bibliography/pop_p2p.php:54
 #: admin/modules/bibliography/z3950.php:293
 #: admin/modules/bibliography/z3950sru.php:326
-#: plugins/inlislite_copy_cataloging/index.php:134
 msgid "Authors"
 msgstr "Pengarang"
 
@@ -1562,7 +1534,6 @@ msgstr "Pengarang"
 #: admin/modules/reporting/customs/titles_list.php:150
 #: admin/modules/reporting/customs/titles_list.php:283
 #: admin/modules/serial_control/index.php:70
-#: plugins/inlislite_copy_cataloging/index.php:132
 #: template/akasia-dz/custom_frontpage_record.inc.php:7
 #: template/akasia-dz/detail_template.php:87
 #: template/akasia/custom_frontpage_record.inc.php:7
@@ -1597,7 +1568,6 @@ msgstr "ISBN/ISSN"
 #: admin/modules/reporting/customs/pop_procurement_list.php:160
 #: admin/modules/reporting/customs/titles_list.php:149
 #: admin/modules/reporting/customs/titles_list.php:282
-#: plugins/inlislite_copy_cataloging/index.php:171
 #: template/akasia-dz/detail_template.php:64
 #: template/akasia/detail_template.php:64
 #: template/default/detail_template.php:60
@@ -1640,8 +1610,8 @@ msgstr "Sembunyikan di OPAC"
 #: admin/modules/reporting/customs/visitor_list.php:76
 #: admin/modules/reporting/customs/visitor_list.php:97
 #: admin/modules/serial_control/index.php:66
-#: admin/modules/stock_take/init.php:213 admin/modules/stock_take/init.php:221
-#: admin/modules/stock_take/init.php:229
+#: admin/modules/stock_take/init.php:215 admin/modules/stock_take/init.php:223
+#: admin/modules/stock_take/init.php:231
 #: admin/modules/stock_take/lost_item_list.php:90
 #: admin/modules/stock_take/lost_item_list.php:102
 #: admin/modules/stock_take/lost_item_list.php:114
@@ -1721,7 +1691,7 @@ msgstr "Catatan Biblio"
 #: admin/modules/master_file/doc_language.php:180
 #: admin/modules/master_file/frequency.php:177
 #: admin/modules/master_file/index.php:182
-#: admin/modules/master_file/item_status.php:208
+#: admin/modules/master_file/item_status.php:205
 #: admin/modules/master_file/label.php:202
 #: admin/modules/master_file/location.php:177
 #: admin/modules/master_file/p2pservers.php:150
@@ -1759,7 +1729,7 @@ msgstr "Catatan"
 #: admin/modules/master_file/doc_language.php:195
 #: admin/modules/master_file/frequency.php:192
 #: admin/modules/master_file/index.php:197
-#: admin/modules/master_file/item_status.php:223
+#: admin/modules/master_file/item_status.php:220
 #: admin/modules/master_file/label.php:217
 #: admin/modules/master_file/location.php:192
 #: admin/modules/master_file/p2pservers.php:165
@@ -1900,7 +1870,7 @@ msgstr "Tambah Pola Baru"
 #: admin/modules/reporting/customs/loan_history.php:114
 #: admin/modules/reporting/customs/pop_procurement_list.php:83
 #: admin/modules/reporting/customs/pop_procurement_list.php:167
-#: admin/modules/stock_take/init.php:233
+#: admin/modules/stock_take/init.php:235
 #: admin/modules/stock_take/lost_item_list.php:110
 #: admin/modules/system/sys_log.php:109 lib/SearchEngine/SearchFilter.php:84
 #: template/akasia/partials/advsearch.php:65
@@ -1911,7 +1881,7 @@ msgstr "Lokasi"
 
 #: admin/modules/bibliography/index.php:834
 #: admin/modules/bibliography/item.php:311
-#: admin/modules/stock_take/init.php:235
+#: admin/modules/stock_take/init.php:237
 msgid "Shelf Location"
 msgstr "Lokasi Rak"
 
@@ -1948,7 +1918,7 @@ msgstr "Lokasi Rak"
 #: admin/modules/reporting/customs/pop_procurement_list.php:121
 #: admin/modules/reporting/customs/pop_procurement_list.php:165
 #: admin/modules/stock_take/current.php:151
-#: admin/modules/stock_take/init.php:225
+#: admin/modules/stock_take/init.php:227
 #: admin/modules/stock_take/lost_item_list.php:98
 #: admin/modules/stock_take/lost_item_list.php:143
 #: admin/modules/stock_take/st_report.php:176
@@ -1962,15 +1932,15 @@ msgstr "Tipe Koleksi"
 #: admin/modules/bibliography/index.php:852
 #: admin/modules/bibliography/item.php:327
 #: admin/modules/master_file/item_status.php:61
-#: admin/modules/master_file/item_status.php:99
-#: admin/modules/master_file/item_status.php:104
+#: admin/modules/master_file/item_status.php:96
+#: admin/modules/master_file/item_status.php:101
+#: admin/modules/master_file/item_status.php:109
 #: admin/modules/master_file/item_status.php:112
-#: admin/modules/master_file/item_status.php:115
-#: admin/modules/master_file/item_status.php:158
+#: admin/modules/master_file/item_status.php:155
+#: admin/modules/master_file/item_status.php:162
 #: admin/modules/master_file/item_status.php:165
-#: admin/modules/master_file/item_status.php:168
-#: admin/modules/master_file/item_status.php:180
-#: admin/modules/master_file/item_status.php:184
+#: admin/modules/master_file/item_status.php:177
+#: admin/modules/master_file/item_status.php:181
 #: admin/modules/master_file/submenu.php:38
 #: admin/modules/reporting/customs/item_titles_list.php:106
 #: admin/modules/reporting/customs/item_titles_list.php:183
@@ -2069,7 +2039,7 @@ msgstr "Data Koleksi"
 #: admin/modules/reporting/customs/item_titles_list.php:83
 #: admin/modules/reporting/customs/titles_list.php:83
 #: admin/modules/serial_control/subscription.php:199
-#: admin/modules/stock_take/init.php:217
+#: admin/modules/stock_take/init.php:219
 #: admin/modules/stock_take/lost_item_list.php:86
 #: admin/modules/stock_take/lost_item_list.php:141
 #: lib/contents/clustering.inc.php:60 template/akasia/partials/advsearch.php:76
@@ -2120,7 +2090,6 @@ msgstr "Nomor publikasi yang unik dari setiap judul cetakan."
 #: admin/modules/bibliography/index.php:954
 #: admin/modules/bibliography/z3950sru.php:218
 #: admin/modules/reporting/customs/pop_procurement_list.php:161
-#: plugins/inlislite_copy_cataloging/index.php:171
 msgid "Publishing Year"
 msgstr "Tahun Terbit"
 
@@ -2132,7 +2101,6 @@ msgstr "Tahun Terbit"
 #: admin/modules/reporting/customs/pop_procurement_list.php:162
 #: admin/modules/reporting/customs/titles_list.php:148
 #: admin/modules/reporting/customs/titles_list.php:281
-#: plugins/inlislite_copy_cataloging/index.php:171
 msgid "Publishing Place"
 msgstr "Tempat Terbit"
 
@@ -2187,7 +2155,7 @@ msgstr "Judul Seri"
 #: admin/modules/reporting/customs/titles_list.php:79
 #: admin/modules/stock_take/current.php:152
 #: admin/modules/stock_take/finish.php:106
-#: admin/modules/stock_take/init.php:239
+#: admin/modules/stock_take/init.php:241
 #: admin/modules/stock_take/lost_item_list.php:78
 #: admin/modules/stock_take/lost_item_list.php:142
 #: admin/modules/stock_take/st_report.php:136
@@ -2488,9 +2456,9 @@ msgstr "Salin"
 #: admin/modules/master_file/index.php:208
 #: admin/modules/master_file/index.php:223
 #: admin/modules/master_file/index.php:227
-#: admin/modules/master_file/item_status.php:243
+#: admin/modules/master_file/item_status.php:239
+#: admin/modules/master_file/item_status.php:254
 #: admin/modules/master_file/item_status.php:258
-#: admin/modules/master_file/item_status.php:262
 #: admin/modules/master_file/label.php:239
 #: admin/modules/master_file/label.php:254
 #: admin/modules/master_file/label.php:258
@@ -2572,7 +2540,6 @@ msgid "Item Barcodes Printing"
 msgstr "Cetak Barkod Eksemplar"
 
 #: admin/modules/bibliography/item_barcode_generator.php:205
-#: plugins/label_mixcode_color_slims-1.0.0-beta-3.4/action/generateLabel.php:81
 msgid ""
 "ERROR! Item barcodes failed to generate, possibly because {directory} "
 "directory is not writable"
@@ -2581,12 +2548,10 @@ msgstr ""
 "tidak bisa ditulisi"
 
 #: admin/modules/bibliography/item_barcode_generator.php:218
-#: plugins/label_mixcode_color_slims-1.0.0-beta-3.4/index.php:78
 msgid "Print Barcodes for Selected Data"
 msgstr "Cetak Barkod untuk Data Terpilih"
 
 #: admin/modules/bibliography/item_barcode_generator.php:219
-#: plugins/label_mixcode_color_slims-1.0.0-beta-3.4/index.php:79
 msgid "Change print barcode settings"
 msgstr "Ubah setelan cetak Kode batang"
 
@@ -2612,7 +2577,7 @@ msgstr "Ekspor data eksemplar ke dalam berkas CSV"
 #: admin/modules/master_file/item_code_pattern.php:46
 #: admin/modules/master_file/item_code_pattern.php:97
 #: admin/modules/master_file/item_status.php:48
-#: admin/modules/master_file/item_status.php:199
+#: admin/modules/master_file/item_status.php:196
 #: admin/modules/master_file/location.php:48
 #: admin/modules/master_file/location.php:168
 #: admin/modules/master_file/place.php:49
@@ -2656,7 +2621,7 @@ msgstr "Ekspor data eksemplar ke dalam berkas CSV"
 #: admin/modules/reporting/xlsoutput.php:37
 #: admin/modules/stock_take/current.php:45
 #: admin/modules/stock_take/finish.php:46 admin/modules/stock_take/index.php:49
-#: admin/modules/stock_take/init.php:46 admin/modules/stock_take/st_log.php:48
+#: admin/modules/stock_take/init.php:48 admin/modules/stock_take/st_log.php:48
 #: admin/modules/stock_take/st_report.php:46
 #: admin/modules/stock_take/st_report_detail.php:45
 #: admin/modules/stock_take/st_upload.php:45
@@ -2797,7 +2762,6 @@ msgstr "Ditemukan {hits} cantuman dari peladen Marc SRU."
 #: admin/modules/bibliography/p2p.php:337
 #: admin/modules/bibliography/z3950sru.php:214
 #: admin/modules/master_file/item_code_pattern.php:115
-#: plugins/inlislite_copy_cataloging/index.php:167
 #: simbio2/simbio_DB/datagrid/simbio_dbgrid.inc.php:390
 msgid "Check All"
 msgstr "Tandai Semua"
@@ -2806,13 +2770,11 @@ msgstr "Tandai Semua"
 #: admin/modules/bibliography/p2p.php:338
 #: admin/modules/bibliography/z3950sru.php:215
 #: admin/modules/master_file/item_code_pattern.php:116
-#: plugins/inlislite_copy_cataloging/index.php:168
 #: simbio2/simbio_DB/datagrid/simbio_dbgrid.inc.php:391
 msgid "Uncheck All"
 msgstr "Hilangkan Semua Tanda"
 
 #: admin/modules/bibliography/marcsru.php:344
-#: plugins/inlislite_copy_cataloging/index.php:169
 msgid "Save Marc Records to Database"
 msgstr "Simpan Cantuman MARC"
 
@@ -2821,14 +2783,12 @@ msgstr "Simpan Cantuman MARC"
 #: admin/modules/bibliography/z3950sru.php:218
 #: admin/modules/master_file/item_code_pattern.php:118
 #: admin/modules/system/shortcut.php:111
-#: plugins/inlislite_copy_cataloging/index.php:171
 msgid "Select"
 msgstr "PIlih"
 
 #: admin/modules/bibliography/marcsru.php:398
 #: admin/modules/bibliography/z3950.php:274
 #: admin/modules/bibliography/z3950sru.php:271
-#: plugins/inlislite_copy_cataloging/index.php:247
 msgid "No Results Found!"
 msgstr "Tidak Ada Hasil!"
 
@@ -2838,7 +2798,6 @@ msgstr "Pencarian/Pengambilan MARC lewat URL (SRU)"
 
 #: admin/modules/bibliography/marcsru.php:444
 #: admin/modules/bibliography/z3950sru.php:323
-#: plugins/inlislite_copy_cataloging/index.php:131
 msgid "All fields"
 msgstr "Semua Ruas"
 
@@ -2850,7 +2809,6 @@ msgstr "Peladen SRU: "
 #: admin/modules/bibliography/p2p.php:297
 #: admin/modules/bibliography/z3950.php:298
 #: admin/modules/bibliography/z3950sru.php:336
-#: plugins/inlislite_copy_cataloging/index.php:149
 msgid "* Please make sure you have a working Internet connection."
 msgstr "* Pastikan Anda memiliki koneksi internet."
 
@@ -4554,50 +4512,50 @@ msgstr "Lewatkan ketika Inventarisasi"
 msgid "Item Status ID and Name can't be empty"
 msgstr "Kode dan Nama Status Eksemplar tidak boleh kosong"
 
-#: admin/modules/master_file/item_status.php:99
+#: admin/modules/master_file/item_status.php:96
 msgid "New Item Status Data Successfully Updated"
 msgstr "Status Eksemplar Baru Berhasil Diperbaharui"
 
-#: admin/modules/master_file/item_status.php:104
+#: admin/modules/master_file/item_status.php:101
 msgid "Item Status Data FAILED to Updated. Please Contact System Administrator"
 msgstr "Status Eksemplar GAGAL Diperbaharui. Hubungi Administrator Sistem"
 
-#: admin/modules/master_file/item_status.php:112
+#: admin/modules/master_file/item_status.php:109
 msgid "New Item Status Data Successfully Saved"
 msgstr "Status Eksemplar Yang Baru Berhasil Disimpan"
 
-#: admin/modules/master_file/item_status.php:115
+#: admin/modules/master_file/item_status.php:112
 msgid "Item Status Data FAILED to Save. Please Contact System Administrator"
 msgstr "Status Eksemplar GAGAL Disimpan. Hubungi Administrator Sistem"
 
-#: admin/modules/master_file/item_status.php:148
+#: admin/modules/master_file/item_status.php:145
 #, php-format
 msgid "%s still in use %d item "
 msgstr "%s masih digunakan oleh %d eksemplar "
 
-#: admin/modules/master_file/item_status.php:185
+#: admin/modules/master_file/item_status.php:182
 msgid "Add New Item Status"
 msgstr "Tambah Status Eksemplar Baru"
 
-#: admin/modules/master_file/item_status.php:228
+#: admin/modules/master_file/item_status.php:225
+#: admin/modules/master_file/item_status.php:252
 #: admin/modules/master_file/item_status.php:256
-#: admin/modules/master_file/item_status.php:260
 msgid "Item Status Code"
 msgstr "Kode Status Eksemplar"
 
-#: admin/modules/master_file/item_status.php:230
+#: admin/modules/master_file/item_status.php:227
+#: admin/modules/master_file/item_status.php:253
 #: admin/modules/master_file/item_status.php:257
-#: admin/modules/master_file/item_status.php:261
 msgid "Item Status Name"
 msgstr "Nama Status Eksemplar"
 
-#: admin/modules/master_file/item_status.php:239
+#: admin/modules/master_file/item_status.php:235
 #: files/membercard/classic/tinfo.inc.php:78
 #: files/membercard/old/tinfo.inc.php:93
 msgid "Rules"
 msgstr "Peraturan"
 
-#: admin/modules/master_file/item_status.php:243
+#: admin/modules/master_file/item_status.php:239
 msgid "You are going to edit Item Status data"
 msgstr "Anda akan menyunting data status eksemplar"
 
@@ -4998,7 +4956,7 @@ msgstr "Kode"
 #: admin/modules/master_file/rda_cmc.php:189
 #: admin/modules/master_file/rda_cmc.php:209
 #: admin/modules/master_file/rda_cmc.php:213 lib/contents/librarian.inc.php:47
-#: sysconfig.inc.php:720
+#: sysconfig.inc.php:721
 msgid "Name"
 msgstr "Nama"
 
@@ -5527,7 +5485,6 @@ msgid "from your search with keyword"
 msgstr "dari kata kunci"
 
 #: admin/modules/membership/member_base_lib.inc.php:181
-#: plugins/ui3_mail_template/ui3_mail_template.plugin.php:26
 msgid "Overdue Notice for Member {member_name} ({member_email})"
 msgstr "Catatan keterlambatan untuk Anggota {member_name} ({member_email})"
 
@@ -6846,7 +6803,7 @@ msgid "Stock Take"
 msgstr "Inventarisasi"
 
 #: admin/modules/stock_take/index.php:69 admin/modules/stock_take/index.php:86
-#: admin/modules/stock_take/index.php:131 admin/modules/stock_take/init.php:209
+#: admin/modules/stock_take/index.php:131 admin/modules/stock_take/init.php:211
 #: admin/modules/stock_take/st_report.php:79
 msgid "Stock Take Name"
 msgstr "Nama Inventariasi"
@@ -6916,53 +6873,53 @@ msgstr "Lihat"
 msgid "Stock take report : <title>"
 msgstr "Laporan inventarisasi : <title>"
 
-#: admin/modules/stock_take/init.php:49
+#: admin/modules/stock_take/init.php:51
 msgid "You must be an admin to run initialization process!"
 msgstr "Proses ini memerlukan akun Super Admin!"
 
-#: admin/modules/stock_take/init.php:56
+#: admin/modules/stock_take/init.php:58
 msgid "Initialize Stock Take Process"
 msgstr "Memulai Proses Inventarisasi"
 
-#: admin/modules/stock_take/init.php:69
+#: admin/modules/stock_take/init.php:71
 msgid "Before stock taking, it is recommended to backup your database first."
 msgstr ""
 "Anda harus membuat cadangan pangkan data sebelum memulai kegiatan stock "
 "opname."
 
-#: admin/modules/stock_take/init.php:70
+#: admin/modules/stock_take/init.php:72
 msgid "Looks like you have not backed up before."
 msgstr "Anda belum membuat cadangan pangkalan data, sebelumnya."
 
-#: admin/modules/stock_take/init.php:72
+#: admin/modules/stock_take/init.php:74
 msgid "Skip backup at your own risk!"
 msgstr "Risiko ditanggung Anda, jika tidak melakukan pencadangan data!"
 
-#: admin/modules/stock_take/init.php:72
+#: admin/modules/stock_take/init.php:74
 msgid "Skip"
 msgstr "Lewat"
 
-#: admin/modules/stock_take/init.php:104
+#: admin/modules/stock_take/init.php:106
 msgid "There is already stock taking proccess running!"
 msgstr "Ada proses inventarisasi yang sedang berjalan!"
 
-#: admin/modules/stock_take/init.php:108
+#: admin/modules/stock_take/init.php:110
 msgid "Stock Take Name must be filled!"
 msgstr "Nama/Kode inventarisasi tidak boleh kosong!"
 
-#: admin/modules/stock_take/init.php:187
+#: admin/modules/stock_take/init.php:189
 msgid "Stock Taking Initialized"
 msgstr "Inisialisasi Inventarisasi"
 
-#: admin/modules/stock_take/init.php:192
+#: admin/modules/stock_take/init.php:194
 msgid "Stock Taking FAILED to Initialized.\\nNo item to stock take!"
 msgstr "Inventarisasi GAGAL.\\n Tak ada eksemplar untuk diinventarisasi!"
 
-#: admin/modules/stock_take/init.php:200
+#: admin/modules/stock_take/init.php:202
 msgid "Initialize Stock Take"
 msgstr "Inisialisasi Inventarisasi"
 
-#: admin/modules/stock_take/init.php:238
+#: admin/modules/stock_take/init.php:240
 msgid "Separate each class comma sign. Use * for wildcard"
 msgstr ""
 "Pisahkan setiap kelas dengan tanda koma. Gunakan * sebagai <i>wildcard</i>"
@@ -9127,7 +9084,7 @@ msgstr "Token tidak valid!"
 msgid "Go Home"
 msgstr "Kembali ke Beranda"
 
-#: lib/contents/login.inc.php:289 lib/contents/member.inc.php:997
+#: lib/contents/login.inc.php:289
 msgid "Password"
 msgstr "Kata Sandi"
 
@@ -9135,7 +9092,7 @@ msgstr "Kata Sandi"
 msgid "Remember me"
 msgstr "Ingat saya"
 
-#: lib/contents/login.inc.php:313 lib/contents/member.inc.php:1014
+#: lib/contents/login.inc.php:313 lib/contents/member.inc.php:1015
 msgid "Login"
 msgstr "Masuk"
 
@@ -9388,15 +9345,19 @@ msgstr "Terjadi galat yang tak diinginkan. Silahkan hubungi Pustakawan"
 msgid "Library Member Login"
 msgstr "Masuk Anggota Perpustakaan"
 
-#: lib/contents/member.inc.php:984
-msgid ""
-"Please insert your member ID and password given by library system "
-"administrator. If you are library's member and don't have a password yet, "
-"please contact library staff."
+#: lib/contents/member.inc.php:985
+msgid "Please inserts your SIMAT's NIS/NIM and PIN/Password"
+msgstr "Masukkan NIS/NIM dan PIN/Kata Sandi SIMAT Anda"
+
+#: lib/contents/member.inc.php:995
+msgid "NIS / NIM"
 msgstr ""
-"Masukan ID anggota serta kata sandi yang diberikan oleh administrator sistem "
-"perpustakaan. Jika Anda anggota perpustakaan namun belum memiliki kata "
-"sandi, hubungi staf perpustakaan."
+
+#: lib/contents/member.inc.php:998
+#, fuzzy
+#| msgid "Password"
+msgid "Password / PIN"
+msgstr "Kata Sandi"
 
 #: lib/contents/newpass.inc.php:65
 msgid "Failed to query user data from database with error: "
@@ -9549,61 +9510,13 @@ msgstr "Tersedia namun tidak untuk dipinjamkan"
 msgid "Location name is not set"
 msgstr "Belum memasukkan lokasi"
 
-#: lib/lang/localisation.php:65
-msgid "Arabic"
-msgstr "Bahasa Arab"
-
-#: lib/lang/localisation.php:66
-msgid "Bengali"
-msgstr "Bahasa Bengal"
-
-#: lib/lang/localisation.php:67
-msgid "Brazilian Portuguese"
-msgstr "Bahasa Brazil Portugis"
-
 #: lib/lang/localisation.php:68
 msgid "English"
 msgstr "Bahasa Inggris"
 
-#: lib/lang/localisation.php:69
-msgid "Espanol"
-msgstr "Bahasa Spanyol"
-
-#: lib/lang/localisation.php:70
-msgid "German"
-msgstr "Bahasa Jerman"
-
 #: lib/lang/localisation.php:71
 msgid "Indonesian"
 msgstr "Bahasa Indonesia"
-
-#: lib/lang/localisation.php:72
-msgid "Japanese"
-msgstr "Bahasa Jepang"
-
-#: lib/lang/localisation.php:73
-msgid "Malay"
-msgstr "Bahasa Melayu"
-
-#: lib/lang/localisation.php:74
-msgid "Persian"
-msgstr "Bahasa Persia"
-
-#: lib/lang/localisation.php:75
-msgid "Russian"
-msgstr "Bahasa Rusia"
-
-#: lib/lang/localisation.php:76
-msgid "Thai"
-msgstr "Bahasa Thailand"
-
-#: lib/lang/localisation.php:77
-msgid "Turkish"
-msgstr "Bahasa Turki"
-
-#: lib/lang/localisation.php:78
-msgid "Urdu"
-msgstr "Bahasa Urdu"
 
 #: lib/lang/string.php:26
 msgid "System"
@@ -9648,32 +9561,6 @@ msgid ""
 msgstr ""
 "Tidak tersedia interaksi dengan modul ini. Hubungi administrator sistem "
 "untuk mengatur akses yang diperlukan."
-
-#: plugins/inlislite_copy_cataloging/index.php:112
-#, php-format
-msgid ""
-"%s insert bibliographic data from Inlislite MARC-XML service (server: %s) "
-"with title (%s) and biblio_id (%s)"
-msgstr ""
-"%s masukkan data bibliografi dari layanan MARC-XML (peladen: %s) dengan "
-"judul (%s) dan biblio_id (%s)"
-
-#: plugins/inlislite_copy_cataloging/index.php:123
-msgid "Search/Retrieve from Inlislite via MARC-XML"
-msgstr "Cari/Ambil menggunakan MARC-XML Inlislite"
-
-#: plugins/inlislite_copy_cataloging/index.php:136
-msgid "Inlislite Server"
-msgstr "Peladen Inlislite"
-
-#: plugins/inlislite_copy_cataloging/index.php:161
-#, php-format
-msgid ""
-"Have found <strong>%s</strong> records from searched keywords <strong>%s</"
-"strong> from <i>%s</i>"
-msgstr ""
-"Telah ditemukan <strong>%s</strong> cantuman dari kata kunci yang dicari "
-"<strong>%s</strong>dari <i>%s</i>"
 
 #: plugins/label_barcode/index.php:280
 msgid "Labels & Barcode Printing"
@@ -9768,83 +9655,83 @@ msgstr "Hal. Akhir"
 msgid "No Data"
 msgstr "Tidak Ada Data"
 
-#: sysconfig.inc.php:713
+#: sysconfig.inc.php:714
 msgid "Personal Name"
 msgstr "Nama Orang"
 
-#: sysconfig.inc.php:714
+#: sysconfig.inc.php:715
 msgid "Organizational Body"
 msgstr "Badan Organisasi"
 
-#: sysconfig.inc.php:715
+#: sysconfig.inc.php:716
 msgid "Conference"
 msgstr "Konferensi"
 
-#: sysconfig.inc.php:718
+#: sysconfig.inc.php:719
 msgid "Topic"
 msgstr "Topik"
 
-#: sysconfig.inc.php:719
+#: sysconfig.inc.php:720
 msgid "Geographic"
 msgstr "Geografis"
 
-#: sysconfig.inc.php:721
+#: sysconfig.inc.php:722
 msgid "Temporal"
 msgstr "Masa"
 
-#: sysconfig.inc.php:722
+#: sysconfig.inc.php:723
 msgid "Genre"
 msgstr "Aliran"
 
-#: sysconfig.inc.php:723
+#: sysconfig.inc.php:724
 msgid "Occupation"
 msgstr "Pekerjaan"
 
-#: sysconfig.inc.php:726
+#: sysconfig.inc.php:727
 msgid "Primary Author"
 msgstr "Pengarang Utama"
 
-#: sysconfig.inc.php:727
+#: sysconfig.inc.php:728
 msgid "Additional Author"
 msgstr "Pengarang Tambahan"
 
-#: sysconfig.inc.php:728
+#: sysconfig.inc.php:729
 msgid "Editor"
 msgstr "Penyunting"
 
-#: sysconfig.inc.php:729
+#: sysconfig.inc.php:730
 msgid "Translator"
 msgstr "Penerjemah"
 
-#: sysconfig.inc.php:730
+#: sysconfig.inc.php:731
 msgid "Director"
 msgstr "Direktur"
 
-#: sysconfig.inc.php:731
+#: sysconfig.inc.php:732
 msgid "Producer"
 msgstr "Produser"
 
-#: sysconfig.inc.php:732
+#: sysconfig.inc.php:733
 msgid "Composer"
 msgstr "Penggubah"
 
-#: sysconfig.inc.php:733
+#: sysconfig.inc.php:734
 msgid "Illustrator"
 msgstr "Ilustrator"
 
-#: sysconfig.inc.php:734
+#: sysconfig.inc.php:735
 msgid "Creator"
 msgstr "Pencipta"
 
-#: sysconfig.inc.php:735
+#: sysconfig.inc.php:736
 msgid "Contributor"
 msgstr "Kontributor"
 
-#: sysconfig.inc.php:739
+#: sysconfig.inc.php:740
 msgid "Senior Librarian"
 msgstr "Pustakawan Senior"
 
-#: sysconfig.inc.php:740
+#: sysconfig.inc.php:741
 msgid "Library Staff"
 msgstr "Staf Perpustakaan"
 
@@ -10512,6 +10399,73 @@ msgstr "Masuk"
 #: template/lightweight/index_template.inc.php:204
 msgid "Put some keyword(s)..."
 msgstr "Masukkan kata kunci..."
+
+#~ msgid ""
+#~ "Please insert your member ID and password given by library system "
+#~ "administrator. If you are library's member and don't have a password yet, "
+#~ "please contact library staff."
+#~ msgstr ""
+#~ "Masukan ID anggota serta kata sandi yang diberikan oleh administrator "
+#~ "sistem perpustakaan. Jika Anda anggota perpustakaan namun belum memiliki "
+#~ "kata sandi, hubungi staf perpustakaan."
+
+#~ msgid "Arabic"
+#~ msgstr "Bahasa Arab"
+
+#~ msgid "Bengali"
+#~ msgstr "Bahasa Bengal"
+
+#~ msgid "Brazilian Portuguese"
+#~ msgstr "Bahasa Brazil Portugis"
+
+#~ msgid "Espanol"
+#~ msgstr "Bahasa Spanyol"
+
+#~ msgid "German"
+#~ msgstr "Bahasa Jerman"
+
+#~ msgid "Japanese"
+#~ msgstr "Bahasa Jepang"
+
+#~ msgid "Malay"
+#~ msgstr "Bahasa Melayu"
+
+#~ msgid "Persian"
+#~ msgstr "Bahasa Persia"
+
+#~ msgid "Russian"
+#~ msgstr "Bahasa Rusia"
+
+#~ msgid "Thai"
+#~ msgstr "Bahasa Thailand"
+
+#~ msgid "Turkish"
+#~ msgstr "Bahasa Turki"
+
+#~ msgid "Urdu"
+#~ msgstr "Bahasa Urdu"
+
+#, php-format
+#~ msgid ""
+#~ "%s insert bibliographic data from Inlislite MARC-XML service (server: %s) "
+#~ "with title (%s) and biblio_id (%s)"
+#~ msgstr ""
+#~ "%s masukkan data bibliografi dari layanan MARC-XML (peladen: %s) dengan "
+#~ "judul (%s) dan biblio_id (%s)"
+
+#~ msgid "Search/Retrieve from Inlislite via MARC-XML"
+#~ msgstr "Cari/Ambil menggunakan MARC-XML Inlislite"
+
+#~ msgid "Inlislite Server"
+#~ msgstr "Peladen Inlislite"
+
+#, php-format
+#~ msgid ""
+#~ "Have found <strong>%s</strong> records from searched keywords <strong>%s</"
+#~ "strong> from <i>%s</i>"
+#~ msgstr ""
+#~ "Telah ditemukan <strong>%s</strong> cantuman dari kata kunci yang dicari "
+#~ "<strong>%s</strong>dari <i>%s</i>"
 
 #~ msgid "Create database connection"
 #~ msgstr "Membuat koneksi pangkalan data"

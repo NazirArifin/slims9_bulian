@@ -284,7 +284,7 @@ if (isset($_POST['updatePassword'])) {
             }
         ?>
 
-            <div class="heading1"><?php echo __('Username'); ?></div>
+            <!-- <div class="heading1"><?php echo __('Username'); ?></div> -->
             <div class="login_input"><input type="text" name="userName" id="userName" class="login_input" required /></div>
             <div class="heading1"><?php echo __('Password'); ?></div>
             <div class="login_input"><input type="password" name="passWord" class="login_input" autocomplete="off" required /></div>

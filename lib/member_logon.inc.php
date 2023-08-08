@@ -20,7 +20,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-
 // be sure that this file not accessed directly
 if (!defined('INDEX_AUTH')) {
     die("can not access this file directly");
@@ -220,6 +219,7 @@ class member_logon
      */
     public function valid($obj_db) {
         global $sysconf;
+        
         $this->obj_db = $obj_db;
         $_check_login = call_user_func(array($this, $this->auth_method.'Login'));
         // check if the user exist in database

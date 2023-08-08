@@ -27,6 +27,7 @@ use SLiMS\DB;
 use SLiMS\Json;
 use SLiMS\Captcha\Factory as Captcha;
 use Volnix\CSRF\CSRF;
+use GuzzleHttp\Client;
 
 // be sure that this file not accessed directly
 if (!defined('INDEX_AUTH')) {
@@ -104,8 +105,55 @@ if (isset($_POST['logMeIn']) && !$is_member_login) {
     // regenerate session ID to prevent session hijacking
     session_regenerate_id(true);
 
+    /**
+     * Edited on: 2019-04-01
+     * Purpose: Check user in SIMAT UNIRA. If user does not exist, then create new user.
+     *          If user exist, then update user data.
+     */ 
+    $client = new Client([
+      'base_uri' => 'https://api.unira.ac.id',
+      'timeout'  => 2.0,
+      'verify' => false,
+    ]);
+
+    try {
+      $response = $client->post('/v1/token', [
+        'headers' => [
+          'Content-Type' => 'application/x-www-form-urlencoded',
+        ],
+        'form_params' => [
+          'username' => $username,
+          'password' => $password,
+          'client' => 'simbio'
+        ],
+      ]);
+    } catch(\GuzzleHttp\Exception\RequestException $e) {
+      // write log
+      utility::writeLogs($dbs, 'member', $username, 'Login', sprintf(__('Login FAILED for member %s from address %s'),$username,ip()));
+      redirect()->withMessage('wrong_password', __('Login FAILED! Wrong Member ID or password!'))->back();
+    }
+
+    $json = json_decode($response->getBody()->getContents(), true);
+    $tokenAccess = $json['data']['attributes']['access'];
+    $tokenRefresh = $json['data']['attributes']['refresh'];
+
+    // get /v1/saya
+    $response = $client->get('/v1/saya', [
+      'headers' => [
+        'Authorization' => 'Bearer '.$tokenAccess,
+      ]
+    ]);
+
+    $json = json_decode($response->getBody()->getContents(), true);
+    $nim = $json['data']['id'];
+    $type = $json['data']['attributes']['type'];
+
+    echo($response->getBody()->getContents());
+    exit();
+
     // create logon class instance
     $logon = new member_logon($username, $password, $sysconf['auth']['member']['method']);
+
     if ($sysconf['auth']['member']['method'] === 'LDAP') $ldap_configs = $sysconf['auth']['member'];
 
     if ($logon->valid($dbs)) {
@@ -981,7 +1029,8 @@ if ($is_member_login) :
             <?php 
             if (flash()->isEmpty())
             {
-                echo __('Please insert your member ID and password given by library system administrator. If you are library\'s member and don\'t have a password yet, please contact library staff.'); 
+                // echo __('Please inserts your member ID and password given by library system administrator. If you are library\'s member and don\'t have a password yet, please contact library staff.'); 
+                echo __('Please inserts your SIMAT\'s NIS/NIM and PIN/Password');
             }
             elseif ($key = flash()->includes('wrong_password','csrf_failed','empty_field','captchaInvalid'))
             {
@@ -991,10 +1040,10 @@ if ($is_member_login) :
         </div>
         <div class="loginInfo">
             <form action="index.php?p=member&destination=<?= urlencode(simbio_security::xssFree($_GET['destination'] ?? '')) ?>" method="post">
-                <div class="fieldLabel"><?php echo __('Member ID'); ?></div>
+                <div class="fieldLabel"><?php echo __('NIS / NIM'); ?></div>
                 <div class="login_input"><input class="form-control" type="text" name="memberID"
                                                 placeholder="Enter member ID" required/></div>
-                <div class="fieldLabel marginTop"><?php echo __('Password'); ?></div>
+                <div class="fieldLabel marginTop"><?php echo __('Password / PIN'); ?></div>
                 <div class="login_input"><input class="form-control" type="password" name="memberPassWord"
                                                 placeholder="Enter password" required autocomplete="off"/></div>
                 <?= \Volnix\CSRF\CSRF::getHiddenInputString() ?>

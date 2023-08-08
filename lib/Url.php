@@ -72,7 +72,8 @@ class Url
     public static function getScheme()
     {
         $urlConfig = Config::getInstance()->get('url.force_https', false);
-        return (self::$forceHttps || $urlConfig ? 'https' : $_SERVER['REQUEST_SCHEME']) . '://';
+        // return (self::$forceHttps || $urlConfig ? 'https' : $_SERVER['REQUEST_SCHEME']) . '://';
+        return 'https' . '://';
     }
 
     /**
