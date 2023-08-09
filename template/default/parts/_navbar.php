@@ -102,7 +102,7 @@ HTML;
                      aria-haspopup="true" aria-expanded="false">
                       <img class="w-6 h-6 rounded-full ml-2 mr-2"
                            src="<?php echo $member_image_path; ?>"
-                           alt="Avatar of Jonathan Reinink">
+                           alt="<?php echo $_SESSION['m_name'] ?>">
                     <?php echo $_SESSION['m_name']; ?>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right">

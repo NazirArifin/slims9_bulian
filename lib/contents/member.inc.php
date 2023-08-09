@@ -28,6 +28,7 @@ use SLiMS\Json;
 use SLiMS\Captcha\Factory as Captcha;
 use Volnix\CSRF\CSRF;
 use GuzzleHttp\Client;
+use SLiMS\Plugins;
 
 // be sure that this file not accessed directly
 if (!defined('INDEX_AUTH')) {
@@ -145,11 +146,64 @@ if (isset($_POST['logMeIn']) && !$is_member_login) {
     ]);
 
     $json = json_decode($response->getBody()->getContents(), true);
-    $nim = $json['data']['id'];
+    $idUser = $json['data']['id'];
     $type = $json['data']['attributes']['type'];
 
-    echo($response->getBody()->getContents());
-    exit();
+    Plugins::getInstance()->execute(Plugins::MEMBERSHIP_INIT);
+    if (! class_exists('simbio_date')) {
+      require SIMBIO.'simbio_UTILS/simbio_date.inc.php';
+    }
+
+    // jika $type == 'mahasiswa', maka kita cek di tabel member
+    if ($type == 'mhs') {
+      $result = $dbs->query("SELECT * FROM member WHERE member_id = '$idUser'");
+      $row = $result->fetch_assoc();
+
+      $data['member_id'] = $idUser;
+      $data['member_name'] = $json['data']['attributes']['nama'];
+      $data['member_type_id'] = 1;
+      $data['inst_name'] = 'Universitas Madura';
+      $data['gender'] = $json['data']['attributes']['jenisKelamin'] == 'L' ? 1 : 0;
+      $data['birth_date'] = implode('-', array_reverse(explode('/', $json['data']['attributes']['lahirtanggal'])));
+      $data['register_date'] = date('Y-m-d');
+      $data['expire_date'] = simbio_date::getNextDate(5000, $data['register_date']);
+      $data['member_since_date'] = $data['register_date'];
+      $data['pin'] = $password;
+      $data['member_address'] = $json['data']['attributes']['alamat'];
+      $data['member_mail_address'] = $json['data']['attributes']['email'];
+      $data['member_phone'] = $json['data']['attributes']['telepon'];
+      $data['member_fax'] = '';
+      $data['postal_code'] = '';
+      $data['member_notes'] = '';
+      $data['member_email'] = $json['data']['attributes']['email'];
+      $data['is_pending'] = 0;
+      $data['input_date'] = date('Y-m-d');
+      $data['last_update'] = date('Y-m-d');
+      $data['mpasswd'] = password_hash($password, PASSWORD_BCRYPT);
+
+      // create sql op object
+      $sql_op = new simbio_dbop($dbs);
+
+      if ($row) {
+        // update data member if any
+        unset($data['input_date']);
+        Plugins::getInstance()->execute(Plugins::MEMBERSHIP_BEFORE_UPDATE, ['data' => $data]);
+
+        // update the data
+        $update = $sql_op->update('member', $data, "member_id = '$idUser'");
+        Plugins::getInstance()->execute(Plugins::MEMBERSHIP_AFTER_UPDATE, ['data' => api::member_load($dbs, $data['member_id'])]);
+      } else {
+        // download image and then save to
+        $filename = 'images/persons/member_' . $idUser . '.jpg';
+        $client->get('https://api.unira.ac.id/' . $json['data']['attributes']['thumbnail'], ['sink' => $filename]);
+        if (file_exists($filename)) {
+          $data['member_image'] = $filename;
+        }
+
+        $insert = $sql_op->insert('member', $data);
+        Plugins::getInstance()->execute(Plugins::MEMBERSHIP_AFTER_SAVE, ['data' => api::member_load($dbs, $data['member_id'])]);
+      }
+    }
 
     // create logon class instance
     $logon = new member_logon($username, $password, $sysconf['auth']['member']['method']);

@@ -37,14 +37,14 @@
                 <div class="mb-4"><?php echo $sysconf['library_name']; ?></div>
                 <ul class="list-reset">
                     <li><a class="text-light" href="index.php?p=libinfo"><?= __('Information'); ?></a></li>
-                    <li><a class="text-light" href="index.php?p=services"><?= __('Services'); ?></a></li>
+                    <!-- <li><a class="text-light" href="index.php?p=services"><?= __('Services'); ?></a></li> -->
                     <li><a class="text-light" href="index.php?p=librarian"><?= __('Librarian'); ?></a></li>
                     <li><a class="text-light" href="index.php?p=member"><?= __('Member Area'); ?></a></li>
                 </ul>
             </div>
             <div class="col-md-5 pt-8 md:pt-0">
                 <h4 class="mb-4"><?= __('About Us'); ?></h4>
-                <p>
+                <p class="" style="font-size:13px">
                     <?= $sysconf['template']['classic_footer_about_us']; ?>
                 </p>
             </div>
@@ -67,18 +67,18 @@
                     </div>
                 </form>
                 <hr>
-                <a target="_blank" title="Support Us" class="btn btn-outline-success mb-2"
+                <!-- <a target="_blank" title="Support Us" class="btn btn-outline-success mb-2"
                    href="https://slims.web.id/web/pages/support-us/"><i
                             class="fas fa-heart mr-2"></i><?= __('Keep SLiMS Alive'); ?></a>
                 <a target="_blank" title="Contribute" class="btn btn-outline-light mb-2"
                    href="https://github.com/slims/"><i
-                            class="fab fa-github mr-2"></i><?= __('Want to Contribute?'); ?></a>
+                            class="fab fa-github mr-2"></i><?= __('Want to Contribute?'); ?></a> -->
             </div>
         </div>
         <hr>
         <div class="flex font-thin text-sm">
-            <p class="flex-1">&copy; <?php echo date('Y'); ?> &mdash; Senayan Developer Community</p>
-            <div class="flex-1 text-right text-grey"><?= __('Powered by '); ?><code>SLiMS</code></div>
+            <p class="flex-1 fs-6">&copy; <?php echo date('Y'); ?> &mdash; Perpustakaan Universitas Madura</p>
+            <div class="flex-1 fs-6 text-right text-grey"><?= __('Powered by '); ?><code>SLiMS</code></div>
         </div>
     </div>
 </footer>

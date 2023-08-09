@@ -243,6 +243,11 @@ function getImagePath($sysconf, $image, $path = 'docs')
   $thumb_url = '';
   $image = urlencode($image);
   $images_loc = 'images/' . $path . '/' . $image;
+
+  if (! file_exists($images_loc) && strpos($image, 'https') !== false) {
+    return urldecode($image);
+  }
+
   $img_status = pathinfo('images/' . $path . '/' . $image);
   if(isset($img_status['extension'])){
     $thumb_url = './lib/minigalnano/createthumb.php?filename=' . urlencode($images_loc) . '&width=120';
