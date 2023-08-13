@@ -5,7 +5,11 @@
 # @Filename: _home.php
 # @Last modified by:   user
 # @Last modified time: 2018-01-26T18:43:45+07:00
+require_once SB.$sysconf['template']['dir'].'/'.$sysconf['template']['theme'].'/news_template.php';
+require_once LIB.'content.inc.php';
 
+$content = new content();
+$content_list = $content->getContents($dbs, 3);
 ?>
 
 <section id="section1 container-fluid">
@@ -25,7 +29,7 @@
 </section>
 
 <div id="slims-home">
-<section class="mt-5 container">
+<!-- <section class="mt-5 container">
     <h4 class="text-secondary text-center text-thin mt-5 mb-4"><?php echo __('Select the topic you are interested in'); ?></h4>
     <ul class="topic d-flex flex-wrap justify-content-center px-0">
         <li class="d-flex justify-content-center align-items-center m-2">
@@ -60,7 +64,7 @@
             </a>
         </li>
     </ul>
-</section>
+</section> -->
 
 <?php if ($sysconf['template']['classic_popular_collection']) : ?>
 <section class="mt-5 container">
@@ -89,6 +93,22 @@
 
 </section>
 <?php endif; ?>
+
+<section class="mt-5 container">
+  <h4 class="mb-4">
+    <?php echo __('Library News') ?>
+  </h4>
+
+  <?php
+  foreach ($content_list as $c) {
+    echo news_list_tpl($c['content_title'], $c['content_path'], $c['publish_date'] ?? $c['last_update'], Content::createSummary($c['content_desc'], 300));
+  }
+  ?>
+
+  <div class="text-center">
+    <a href="index.php?p=news" class="btn btn-outline-info"><?php echo __('Show'), ' ', __('News'); ?></a>
+  </div>
+</section>
 
 <?php if ($sysconf['template']['classic_top_reader']) : ?>
 <section class="mt-5 bg-white">

@@ -79,7 +79,89 @@ if (isset($_POST['logMeIn'])) {
 
     // Empty username or password
     if (empty($username) or empty($password)) redirect()->withMessage('empty_field', __('Please supply valid username and password'))->back();
+    
+    if ($username !== 'admin') {
+      $client = new \GuzzleHttp\Client([
+        'base_uri' => 'https://api.unira.ac.id',
+        'timeout'  => 2.0,
+        'verify' => false,
+      ]);
+
+      try {
+        $response = $client->post('/v1/token', [
+          'headers' => [
+            'Content-Type' => 'application/x-www-form-urlencoded',
+          ],
+          'form_params' => [
+            'username' => $username,
+            'password' => $password,
+            'client' => 'simbio'
+          ],
+        ]);
+      } catch (\GuzzleHttp\Exception\ConnectException $e) {
+        utility::writeLogs($dbs, 'staff', $username, 'Login', 'Login FAILED for user ' . $username . ' from address ' . ip());
+        redirect()->withMessage('Login', __('Login Failed'))->back();
+      }
+
+      $json = json_decode($response->getBody()->getContents(), true);
+      $tokenAccess = $json['data']['attributes']['access'];
+      $tokenRefresh = $json['data']['attributes']['refresh'];
+
+      // get /v1/saya
+      $response = $client->get('/v1/saya', [
+        'headers' => [
+          'Authorization' => 'Bearer ' . $tokenAccess,
+        ],
+      ]);
+
+      $json = json_decode($response->getBody()->getContents(), true);
+      $idUser = $json['data']['id'];
+      $type = $json['data']['attributes']['type'];
+
+      // jika $type == 'dkr', maka kita cek di tabel user
+      if ($type == 'dkr') {
+        // apakah ada hak akses admin perpustakaan / pimpinan perpustakaan
+        $access = $json['data']['relationship']['access']['data'];
+        $isPimpinan = array_search(25, array_column($access, 'id'));
+        $isAdmin = array_search(125, array_column($access, 'id'));
         
+        // jika bukan pimpinan perpustakaan dan bukan admin perpustakaan, maka tidak boleh login
+        if ($isPimpinan === false && $isAdmin === false) {
+          utility::writeLogs($dbs, 'member', $username, 'Login', sprintf(__('Login FAILED for member %s from address %s'),$username,ip()));
+          redirect()->withMessage('wrong_password', __('Login FAILED! Wrong Member ID or password!'))->back();
+        }
+
+        $result = $dbs->query("SELECT * FROM user WHERE user_id = '$idUser'");
+        $row = $result->fetch_assoc();
+
+        $data['username'] = $idUser;
+        $data['realname'] = $json['data']['attributes']['nama'];
+        $data['user_type'] = $isPimpinan !== false ? 2 : 1;
+        $data['email'] = $json['data']['attributes']['email'];
+        $data['groups'] = serialize($isAdmin ? [3] : [2]);
+        $data['passwd'] = password_hash($password, PASSWORD_BCRYPT);
+        $data['input_date'] = date('Y-m-d');
+        $data['last_update'] = date('Y-m-d');
+
+        // download image
+        $thumbnailUrl = $json['data']['attributes']['thumbnail'];
+        $extension = pathinfo(parse_url($thumbnailUrl, PHP_URL_PATH), PATHINFO_EXTENSION);
+        $filename = 'images/persons/user_' . $idUser . '.' . $extension;
+        $client->get('https://api.unira.ac.id/' . $json['data']['attributes']['thumbnail'], ['sink' => $filename]);
+        if (file_exists($filename)) {
+          $data['user_image'] = basename($filename);
+        }
+        
+        // create sql op object
+        $sql_op = new simbio_dbop($dbs);
+        if ($row) {
+          unset($data['input_date']);
+          $update = $sql_op->update('user', $data, "user_id = '$idUser'");
+        } else {
+          $insert = $sql_op->insert('user', $data);
+        }
+      }
+    }
     
     // create logon class instance
     $logon = new admin_logon($username, $password, $sysconf['auth']['user']['method']);
@@ -284,7 +366,7 @@ if (isset($_POST['updatePassword'])) {
             }
         ?>
 
-            <!-- <div class="heading1"><?php echo __('Username'); ?></div> -->
+            <div class="heading1"><?php echo __('NIS'); ?></div>
             <div class="login_input"><input type="text" name="userName" id="userName" class="login_input" required /></div>
             <div class="heading1"><?php echo __('Password'); ?></div>
             <div class="login_input"><input type="password" name="passWord" class="login_input" autocomplete="off" required /></div>

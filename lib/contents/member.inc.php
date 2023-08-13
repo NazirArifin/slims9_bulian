@@ -129,7 +129,6 @@ if (isset($_POST['logMeIn']) && !$is_member_login) {
         ],
       ]);
     } catch(\GuzzleHttp\Exception\RequestException $e) {
-      // write log
       utility::writeLogs($dbs, 'member', $username, 'Login', sprintf(__('Login FAILED for member %s from address %s'),$username,ip()));
       redirect()->withMessage('wrong_password', __('Login FAILED! Wrong Member ID or password!'))->back();
     }
@@ -154,7 +153,7 @@ if (isset($_POST['logMeIn']) && !$is_member_login) {
       require SIMBIO.'simbio_UTILS/simbio_date.inc.php';
     }
 
-    // jika $type == 'mahasiswa', maka kita cek di tabel member
+    // jika $type == 'mhs', maka kita cek di tabel member
     if ($type == 'mhs') {
       $result = $dbs->query("SELECT * FROM member WHERE member_id = '$idUser'");
       $row = $result->fetch_assoc();
@@ -197,7 +196,7 @@ if (isset($_POST['logMeIn']) && !$is_member_login) {
         $filename = 'images/persons/member_' . $idUser . '.jpg';
         $client->get('https://api.unira.ac.id/' . $json['data']['attributes']['thumbnail'], ['sink' => $filename]);
         if (file_exists($filename)) {
-          $data['member_image'] = $filename;
+          $data['member_image'] = basename($filename);
         }
 
         $insert = $sql_op->insert('member', $data);
@@ -899,10 +898,10 @@ if ($is_member_login) :
                             'text' => __('Loan History'),
                             'link' => 'index.php?p=member&sec=loan_history'
                         ],
-                        'my_account' => [
-                            'text' => __('My Account'),
-                            'link' => 'index.php?p=member&sec=my_account'
-                        ]
+                        // 'my_account' => [
+                        //     'text' => __('My Account'),
+                        //     'link' => 'index.php?p=member&sec=my_account'
+                        // ]
                     ];
                     $section = isset($_GET['sec']) ? trim($_GET['sec']) : 'current_loan';
                     foreach ($tabs_menus as $km => $kv) {
@@ -1094,10 +1093,10 @@ if ($is_member_login) :
         </div>
         <div class="loginInfo">
             <form action="index.php?p=member&destination=<?= urlencode(simbio_security::xssFree($_GET['destination'] ?? '')) ?>" method="post">
-                <div class="fieldLabel"><?php echo __('NIS / NIM'); ?></div>
+                <div class="fieldLabel"><?php echo __('NIM'); ?></div>
                 <div class="login_input"><input class="form-control" type="text" name="memberID"
                                                 placeholder="Enter member ID" required/></div>
-                <div class="fieldLabel marginTop"><?php echo __('Password / PIN'); ?></div>
+                <div class="fieldLabel marginTop"><?php echo __('PIN'); ?></div>
                 <div class="login_input"><input class="form-control" type="password" name="memberPassWord"
                                                 placeholder="Enter password" required autocomplete="off"/></div>
                 <?= \Volnix\CSRF\CSRF::getHiddenInputString() ?>
