@@ -74,9 +74,9 @@ $data = array();
 if (isset($_GET['format'])) {
 	if ($_GET['format'] == 'json') {
 
-		header('Contenty-Type: application/json');
+		header('Content-Type: application/json');
 
-		if ($error) {
+    if ($error) {
 			echo json_encode(array('id' => 0, 'text' => $error));
 		}
 		if ($query->num_rows > 0) {

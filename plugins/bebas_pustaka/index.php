@@ -1,7 +1,7 @@
 <?php
 /**
  * @Created by        : Mohammad Nazir Arifin (nazir@unira.ac.id)
- * @Date-Time         : 2020-04-11 10:04:00
+ * @Date-Time         : 2023-08-15 10:04:00
  * @Filename          : index.php
  */
 
@@ -30,46 +30,157 @@ if (! $can_read) {
 // execute registered hook
 Plugins::getInstance()->execute(Plugins::MEMBERSHIP_INIT);
 
-function showMemberImage($obj_db, $array_data){
-  global $sysconf;
-  $imageDisk = Storage::images();
-  $image = 'images/persons/photo.png';
-  $_q = $obj_db->query('SELECT member_image,member_name,member_address,member_phone FROM member WHERE member_id = "'.$array_data[0].'"');
-  if(isset($_q->num_rows)){
-    $_d = $_q->fetch_row();
-    if($_d[0] != NULL){     
-      $image = $imageDisk->isExists('persons/'.$_d[0])?'images/persons/'.$_d[0]:'images/persons/photo.png';
-    }
-    $addr  = $_d[2]!=''?'<i class="fa fa-map-marker" aria-hidden="true"></i></i>&nbsp;'.$_d[2]:'';
-    $phone = $_d[3]!=''?'<i class="fa fa-phone" aria-hidden="true"></i>&nbsp;'.$_d[3]:'';
-  }
+// function showMemberImage($obj_db, $array_data){
+//   global $sysconf;
+//   $imageDisk = Storage::images();
+//   $image = 'images/persons/photo.png';
+//   $_q = $obj_db->query('SELECT member_image,member_name,member_address,member_phone FROM member WHERE member_id = "'.$array_data[0].'"');
+//   if(isset($_q->num_rows)){
+//     $_d = $_q->fetch_row();
+//     if($_d[0] != NULL){     
+//       $image = $imageDisk->isExists('persons/'.$_d[0])?'images/persons/'.$_d[0]:'images/persons/photo.png';
+//     }
+//     $addr  = $_d[2]!=''?'<i class="fa fa-map-marker" aria-hidden="true"></i></i>&nbsp;'.$_d[2]:'';
+//     $phone = $_d[3]!=''?'<i class="fa fa-phone" aria-hidden="true"></i>&nbsp;'.$_d[3]:'';
+//   }
 
-  $imageUrl = SWB . 'lib/minigalnano/createthumb.php?filename=' . $image . '&width=120';
-  $_output = '<div class="media"> 
-              <a href="'.$imageUrl.'" class="openPopUp notAJAX" title="'.$_d[1].'" width="300" height="400" >
-              <img class="mr-3 rounded" src="'.$imageUrl.'" alt="cover image" width="60"></a>
-              <div class="media-body">
-                <div class="title">'.$array_data[2].'</div>
-                <div class="sub">'.$phone.'</div>
-                <div class="sub">'.$addr.'</div>
-              </div>
-            </div>';
-  return $_output;
-}
+//   $imageUrl = SWB . 'lib/minigalnano/createthumb.php?filename=' . $image . '&width=120';
+//   $_output = '<div class="media"> 
+//               <a href="'.$imageUrl.'" class="openPopUp notAJAX" title="'.$_d[1].'" width="300" height="400" >
+//               <img class="mr-3 rounded" src="'.$imageUrl.'" alt="cover image" width="60"></a>
+//               <div class="media-body">
+//                 <div class="title">'.$array_data[2].'</div>
+//                 <div class="sub">'.$phone.'</div>
+//                 <div class="sub">'.$addr.'</div>
+//               </div>
+//             </div>';
+//   return $_output;
+// }
 
+/**
+ * Generates a print button link for the Bebas Pustaka plugin.
+ *
+ * @param object $obj_db The database object.
+ * @param array $array_data An array containing the member ID.
+ * @return string The HTML code for the print button link.
+ */
 function showPrintButton($obj_db, $array_data) {
-  return '<a href="https://api.unira.ac.id/print/bebaspustaka?member_id=' . $array_data[0] . '" class="btn btn-default btn-sm" title="' . __('Print') . '"><i class="fa fa-print"></i></a>';
+  $data = [
+    'member_id' => $array_data[0],
+    'fl_id' => $array_data[5],
+    'reason' => $array_data[3],
+    'created' => date('m-Y', strtotime($array_data[4]))
+  ];
+
+  return '<a href="https://api.unira.ac.id/print/bebaspustaka?member_id=' . http_build_query($data) . '" class="btn btn-default btn-sm" title="' . __('Print') . '"><i class="fa fa-print"></i></a>';
 }
 
+
+/**
+ * Build a query string for HTTP requests by merging the given query parameters with the current $_GET parameters.
+ *
+ * @param array $query An array of query parameters to merge with the current $_GET parameters.
+ * @return string The resulting query string.
+ */
 function httpQuery($query = []) {
   return http_build_query(array_unique(array_merge($_GET, $query)));
 }
 
-// add new free loan
-if (isset($_GET['do']) && $_GET['do'] == 'add') {
+// save data --------------------------------------------------------------------------
+if (isset($_POST['saveData']) && $can_read) {
+  $memberID = $dbs->escape_string($_POST['memberID']);
+  $academicYear = $dbs->escape_string($_POST['academicYear']);
+  $reason = $dbs->escape_string($_POST['reason']);
   
+  $anyError = false;
+  if ($memberID == '') {
+    toastr(__('Member ID is required'))->error();
+    $anyError = true;
+  }
+  if ($academicYear == '') {
+    toastr(__('Academic Year is required'))->error();
+    $anyError = true;
+  }
+  if ($reason == '') {
+    toastr(__('Reason is required'))->error();
+    $anyError = true;
+  }
+  if ($anyError) die();
+  
+  $sql_string = 'INSERT INTO free_loan (member_id, academic_year, reason, created_at) VALUES ("' . $memberID . '", "' . $academicYear . '", "' . $reason . '", "' . date('Y-m-d H:i:s') . '")';
+  $dbs->query($sql_string);
+  $error = $dbs->error;
+  if ($error) {
+    die('SQL ERROR : ' . $error);
+  }
+  toastr(__('Data saved'))->success();
+  // change content of #mainContent from $_SERVER['PHP_SELF'] . '?' . httpQuery(['do' => 'add']) to $_SERVER['PHP_SELF'] . '?' . httpQuery()
+  echo '<script type="text/javascript">parent.$(\'#mainContent\').simbioAJAX(\'' . $_SERVER['PHP_SELF'] . '?' . httpQuery() . '\');</script>';
+  die();
+}
 
+// check member id ---------------------------------------------------------------------
+if (isset($_GET['do']) && $_GET['do'] == 'checkMember') {
+  $sql_string = 'SELECT member_id, member_name FROM member WHERE member_id = "' . $dbs->escape_string($_GET['memberID']) . '" LIMIT 1';
+  $result = $dbs->query($sql_string);
+  $error = $dbs->error;
+  if ($error) {
+    die('SQL ERROR : ' . $error);
+  }
+  if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    echo '<strong>' . $row['member_name'] . '</strong>';
+  } else {
+    echo '<strong style="color: #FF0000;">Anggota tidak ditemukan</strong>';
+  }
+  die();
+}
+
+// add new free loan ------------------------------------------------------------------------------
+if (isset($_GET['do']) && $_GET['do'] == 'add') {
+  $client = new GuzzleHttp\Client([
+    'base_uri' => 'https://api.unira.ac.id',
+    'timeout'  => 2.0,
+    'verify' => false
+  ]);
+
+  try {
+    $response = $client->request('GET', '/v1/thajaran?sort=-nama,-semester');
+  } catch (GuzzleHttp\Exception\ConnectException $e) {
+    die('<div class="errorBox">' . __('Failed to connect to API server') . '</div>');
+  }
+
+  $json = json_decode($response->getBody()->getContents(), true);
+  $thAjaran = [
+    '' => __('Select Academic Year')
+  ];
+  // find selected th ajaran by using attributes['status'], if status == 1 then selected
+  $selectedThAjaran = array_filter($json['data'], function($th) {
+    return $th['attributes']['status'] == 1;
+  })[0]['id'] . '';
+  $prefixYear = substr(date('Y'), 0, 2);
+  foreach ($json['data'] as $th) {
+    $thAjaran[] = [
+      $th['id'] . '',
+      $prefixYear . substr($th['attributes']['nama'], 0, 2) . '/' . $prefixYear . substr($th['attributes']['nama'], 2, 2) . ' - ' . ($th['attributes']['semester'] == 1 ? 'GASAL' : 'GENAP')
+    ];
+  }
+  
   ?>
+    <script>
+      async function ajaxCheckMember(url, table, field, msgBox, id) {
+        const memberID = document.getElementById(id).value;
+        // remove do query in url
+        url = url.replace(/&do=[^&]+/, '');
+        const response = await fetch(url + '&do=checkMember&memberID=' + memberID);
+        const data = await response.text();
+        // if data contains #FF0000 then it's an error, so clear the input
+        if (data.indexOf('#FF0000') > -1) {
+          document.getElementById(id).value = '';
+        }
+        document.getElementById(msgBox).innerHTML = data;
+      }
+    </script>
     <div class="menuBox">
       <div class="menuBoxInner memberIcon">
         <div class="per_title">
@@ -83,7 +194,7 @@ if (isset($_GET['do']) && $_GET['do'] == 'add') {
       </div>
     </div>
   <?php
-  $form = new simbio_form_table_AJAX('flForm', $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'], 'post');
+  $form = new simbio_form_table_AJAX('flForm', $_SERVER['PHP_SELF'] . '?' . httpQuery(['do' => '']), 'post');
   $form->submit_button_attr = 'name="saveData" value="' . __('Save') . '" class="s-btn btn btn-default"';
 
   // form table attributes
@@ -94,19 +205,21 @@ if (isset($_GET['do']) && $_GET['do'] == 'add') {
   // member code
   $str_input  = '<div class="container-fluid">';
   $str_input .= '<div class="row">';
-  $str_input .= simbio_form_element::textField('text', 'memberID', $rec_d['member_id']??'', 'id="memberID" onblur="ajaxCheckID(\''.SWB.'admin/AJAX_check_id.php\', \'member\', \'member_id\', \'msgBox\', \'memberID\')" class="form-control col-4"');
+  $str_input .= simbio_form_element::textField('text', 'memberID', $rec_d['member_id']??'', 'id="memberID" onblur="ajaxCheckMember(\'' . $_SERVER['PHP_SELF'] . '?' . httpQuery() . '\', \'member\', \'member_id:member_name\', \'msgBox\', \'memberID\')" class="form-control col-4"');
   $str_input .= '<div id="msgBox" class="col mt-2"></div>';
   $str_input .= '</div>';
   $str_input .= '</div>';
-  $form->addAnything(__('NIM Anggota').'*', $str_input);
+  $form->addAnything(__('Member ID').'*', $str_input);
+  // tahun akademik
+  $form->addSelectList('academicYear', __('Academic Year') . '*' , $thAjaran, $selectedThAjaran, 'class="form-control col-4"');
+  // alasan
+  $form->addTextField('textarea', 'reason', __('Reason') . '*', '', 'class="form-control col-8"');
 
   echo $form->printOut();
-  return;
+  die();
 }
-
 /* search form */
 ?>
-
   <div class="menuBox">
     <div class="menuBoxInner memberIcon">
       <div class="per_title">
@@ -124,6 +237,7 @@ if (isset($_GET['do']) && $_GET['do'] == 'add') {
     </div>
   </div>
 <?php
+
 /* main content */
 $table_spec = 'free_loan as fl LEFT JOIN member AS m ON fl.member_id = m.member_id LEFT JOIN mst_member_type AS mt ON m.member_type_id = mt.member_type_id';
 $datagrid = new simbio_datagrid();
@@ -131,11 +245,13 @@ $datagrid->setSQLColumn(
   'm.member_id AS \'' . __('Member ID') . '\'',
   'm.member_name AS \'' . __('Member Name') . '\'',
   'mt.member_type_name AS \'' . __('Membership Type') . '\'',
-  '1 AS \'' . __('Action') . '\''
+  'fl.reason AS \'' . __('Reason') . '\'',
+  'fl.created_at AS \'' . __('Created At') . '\'',
+  'fl.id AS \'' . __('Action') . '\''
 );
-// $datagrid->modifyColumnContent(1, 'callback{showMemberImage}');
-// $datagrid->modifyColumnContent(3, 'callback{showPrintButton}');
-// $datagrid->setSQLorder('m.member_id');
+// $datagrid->modifyColumnContent(0, 'callback{showMemberImage}');
+$datagrid->modifyColumnContent(5, 'callback{showPrintButton}');
+$datagrid->setSQLorder('fl.created_at DESC');
 
 // is there any search
 $criteria = 'fl.member_id IS NOT NULL ';

@@ -27,9 +27,9 @@ class CreateFreeLoanTable extends \SLiMS\Migration\Migration {
       $table->collation = 'utf8mb4_unicode_ci';
       $table->autoIncrement('id');
       $table->string('member_id', 20)->notNull();
-      $table->smallInteger('academic_year') ->notNull();
+      $table->number('academic_year', 3)->notNull();
       $table->string('reason', 255)->notNull();
-      $table->timestamps();
+      $table->datetime('created_at')->notNull();
     });
   }
 
