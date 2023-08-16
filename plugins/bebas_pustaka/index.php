@@ -66,13 +66,11 @@ Plugins::getInstance()->execute(Plugins::MEMBERSHIP_INIT);
  */
 function showPrintButton($obj_db, $array_data) {
   $data = [
-    'member_id' => $array_data[0],
-    'fl_id' => $array_data[5],
     'reason' => $array_data[3],
-    'created' => date('m-Y', strtotime($array_data[4]))
+    'created' => date('d-m-Y', strtotime($array_data[4]))
   ];
 
-  return '<a href="https://api.unira.ac.id/print/bebaspustaka?member_id=' . http_build_query($data) . '" class="btn btn-default btn-sm" title="' . __('Print') . '"><i class="fa fa-print"></i></a>';
+  return '<a href="https://api.unira.ac.id/print/bebaspustaka/' . $array_data[0] . '/' . $array_data[5] . '?' . http_build_query($data) . '" class="btn btn-default btn-sm" title="' . __('Print') . '" target="_blank"><i class="fa fa-print"></i></a>';
 }
 
 
@@ -106,6 +104,14 @@ if (isset($_POST['saveData']) && $can_read) {
     $anyError = true;
   }
   if ($anyError) die();
+
+  // cari di loan apakah ada yang is_return = 0
+  $sql_string = 'SELECT loan_id FROM loan WHERE member_id = "' . $memberID . '" AND is_return = 0 LIMIT 1';
+  $result = $dbs->query($sql_string);
+  if ($result->num_rows > 0) {
+    toastr(__('Member still has an active loan'))->error();
+    die();
+  }
   
   $sql_string = 'INSERT INTO free_loan (member_id, academic_year, reason, created_at) VALUES ("' . $memberID . '", "' . $academicYear . '", "' . $reason . '", "' . date('Y-m-d H:i:s') . '")';
   $dbs->query($sql_string);
