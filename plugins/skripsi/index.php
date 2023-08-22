@@ -35,12 +35,27 @@ function httpQuery($query = []) {
   return http_build_query(array_unique(array_merge($_GET, $query)));
 }
 
+// delete skripsi
+if (isset($_GET['do']) && $_GET['do'] == 'delete' && isset($_GET['mid'])) {
+  $dbs->query('DELETE FROM skripsi WHERE member_id = \'' . $dbs->escape_string($_GET['mid']) . '\'');
+  utility::jsToastr(__('Skripsi berhasil dihapus'), 'Data skripsi berhasil dihapus', 'success');
+}
+
 ?>
   <script type="text/javascript">
 const current = '<?php echo $_SERVER['PHP_SELF'] . '?' . httpQuery() ?>';
 
-function verify(mid, status) {
+function verifySkripsi(mid, status) {
   console.log(mid, status);
+}
+
+function deleteSkripsi(url) {
+  // confirm delete
+  const confirmDelete = confirm('Apakah anda yakin akan menghapus skripsi ini?');
+  if (! confirmDelete) {
+    return;
+  }
+  parent.$('#mainContent').simbioAJAX(url);
 }
   </script>
 
@@ -66,10 +81,12 @@ $datagrid->setSQLColumn(
   'm.member_id AS \'' . __('Member ID') . '\'',
   'm.member_name AS \'' . __('Member Name') . '\'',
   's.is_valid AS \'' . __('Status') . '\'',
+  's.is_valid AS \'' . __('File') . '\'',
   's.is_valid AS \'' . __('Action') . '\'',
 );
 $datagrid->modifyColumnContent(2, 'callback{translateStatus}');
-$datagrid->modifyColumnContent(3, 'callback{showActionAdmin}');
+$datagrid->modifyColumnContent(3, 'callback{showFile}');
+$datagrid->modifyColumnContent(4, 'callback{showActionAdmin}');
 $datagrid->setSQLorder('s.is_valid ASC');
 
 // is there any search

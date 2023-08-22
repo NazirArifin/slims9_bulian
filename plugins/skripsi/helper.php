@@ -86,7 +86,7 @@ function showFormAddSkripsi() {
   $judul = $skripsi['judul'];
   $prodi = $skripsi['mahasiswa']['prodi']['nama'];
 
-  if (isset($_SESSION['flash']) && isset($_SESSION['flash']['messages'])) {
+  if (isset($_SESSION['flash']) && isset($_SESSION['flash']['messages']) && isset($_SESSION['flash']['messages']['error'])) {
     $flash = $_SESSION['flash']['messages']['error'];
     ?>
     <div class="alert alert-danger text-center">
@@ -168,11 +168,15 @@ function showAction($obj_db, $array_data) {
   }
 }
 
+function showFile($obj_db, $array_data) {
+  return '<a href="/files/skripsi/'. $array_data[0] .'" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-download"></i></a>';
+}
+
 function showActionAdmin($obj_db, $array_data) {
-  if ($array_data[3] == 0) {
+  if ($array_data[4] == 0) {
     return '
-      <button type="button" onclick="verify(\'' . $array_data[0] . '\', '. $array_data[3] .')" class="btn btn-sm btn-success">Verifikasi</button>
-      <a href="" class="btn btn-sm btn-danger">Tolak</a>
+      <button type="button" onclick="verifySkripsi(\'' . $array_data[0] . '\', '. $array_data[4] .')" class="btn btn-sm btn-success">Verifikasi</button>
+      <button type="button" onclick="deleteSkripsi(\'' . $_SERVER['PHP_SELF']  . '?' . httpQuery(['do' => 'delete', 'mid' => $array_data[0]]) .'\')" class="btn btn-sm btn-danger">Hapus</button>
     '; 
   }
 }

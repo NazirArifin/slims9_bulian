@@ -529,7 +529,7 @@ if ($is_member_login) :
 
         // save file
         $file_disk = Storage::files();
-        $file_name = $_SESSION['mid'] . '.pdf';
+        $file_name = $_SESSION['mid'];
         $pdf_upload = $file_disk->upload('file', function($files) use($sysconf, $file_name) {
           // ekstension check
           $files->isExtensionAllowed(['.pdf']);
@@ -550,7 +550,7 @@ if ($is_member_login) :
           'member_id' => $_SESSION['mid'],
           'title' => $dbs->escape_string($_POST['title']),
           'year' => intval($_POST['year']),
-          'file' => $file_name,
+          'file' => $file_name . '.pdf',
           'is_valid' => 0,
           'created_at' => date('Y-m-d H:i:s'),
           'updated_at' => date('Y-m-d H:i:s'),
