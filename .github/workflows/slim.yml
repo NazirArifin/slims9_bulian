@@ -21,3 +21,4 @@ jobs:
           command: |
             cd /var/www/html/perpustakaan
             git fetch --all
+            git reset --hard origin/master
