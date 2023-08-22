@@ -26,6 +26,8 @@ slims8_akasia.sublime-workspace
 plugins/*
 !plugins/read_counter/
 !plugins/bebas_pustaka/
+!plugins/skripsi/
+!plugins/login_simat/
 
 template/*
 
