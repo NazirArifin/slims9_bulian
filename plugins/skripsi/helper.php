@@ -167,3 +167,12 @@ function showAction($obj_db, $array_data) {
     return '<a href="?p=member&sec=thesis&do=delete&id=' . $array_data[0] . '" class="btn btn-sm btn-danger">Edit</a>';
   }
 }
+
+function showActionAdmin($obj_db, $array_data) {
+  if ($array_data[3] == 0) {
+    return '
+      <button type="button" onclick="verify(\'' . $array_data[0] . '\', '. $array_data[3] .')" class="btn btn-sm btn-success">Verifikasi</button>
+      <a href="" class="btn btn-sm btn-danger">Tolak</a>
+    '; 
+  }
+}

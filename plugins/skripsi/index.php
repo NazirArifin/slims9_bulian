@@ -19,6 +19,8 @@ require SIMBIO . 'simbio_GUI/table/simbio_table.inc.php';
 require SIMBIO . 'simbio_GUI/form_maker/simbio_form_table_AJAX.inc.php';
 require SIMBIO . 'simbio_DB/datagrid/simbio_dbgrid.inc.php';
 
+require_once 'helper.php';
+
 // privilege check
 $can_read = utility::havePrivilege('membership', 'r');
 
@@ -34,6 +36,14 @@ function httpQuery($query = []) {
 }
 
 ?>
+  <script type="text/javascript">
+const current = '<?php echo $_SERVER['PHP_SELF'] . '?' . httpQuery() ?>';
+
+function verify(mid, status) {
+  console.log(mid, status);
+}
+  </script>
+
   <div class="menuBox">
     <div class="menuBoxInner memberIcon">
       <div class="per_title">
@@ -50,10 +60,38 @@ function httpQuery($query = []) {
 <?php
 
 /* main content */
-$table_spec = 'skripsi as s LEFT JOIN member AS m ON s.member_id = m.member_id';
-$datagrid = new simbio_dbgrid();
+$table_spec = 'skripsi AS s LEFT JOIN member AS m ON s.member_id = m.member_id';
+$datagrid = new simbio_datagrid();
 $datagrid->setSQLColumn(
   'm.member_id AS \'' . __('Member ID') . '\'',
   'm.member_name AS \'' . __('Member Name') . '\'',
-  
+  's.is_valid AS \'' . __('Status') . '\'',
+  's.is_valid AS \'' . __('Action') . '\'',
 );
+$datagrid->modifyColumnContent(2, 'callback{translateStatus}');
+$datagrid->modifyColumnContent(3, 'callback{showActionAdmin}');
+$datagrid->setSQLorder('s.is_valid ASC');
+
+// is there any search
+$criteria = 's.member_id IS NOT NULL';
+if (isset($_GET['keywords']) AND $_GET['keywords'] != '') {
+  $keywords = $dbs->escape_string($_GET['keywords']);
+  $criteria .= ' AND (m.member_id LIKE \'%' . $keywords . '%\' OR m.member_name LIKE \'%' . $keywords . '%\')';
+}
+$datagrid->setSQLCriteria($criteria);
+
+// set table and table header attributes
+$datagrid->table_name = 'memberList';
+$datagrid->table_attr = 'id="dataList" class="s-table table"';
+$datagrid->table_header_attr = 'class="dataListHeader" style="font-weight: bold;"';
+
+// put the result into variables
+$datagrid_result = $datagrid->createDataGrid($dbs, $table_spec, 7, false);
+
+if (isset($_GET['keywords']) AND $_GET['keywords'] != '') {
+  echo '<div class="infoBox">';
+  echo __('Found') . ' ' . $datagrid->num_rows . ' ' . __('from your search with keyword') . ' <strong>' . htmlentities($_GET['keywords']) . '</strong>';
+  echo '</div>';
+}
+
+echo $datagrid_result;
