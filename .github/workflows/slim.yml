@@ -1,0 +1,23 @@
+name: slim
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: pull and restart
+        uses: fifsky/ssh-action@v0.0.5
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          user: ${{ secrets.SSH_USERNAME }}
+          pass: ${{ secrets.SSH_PASSWORD }}
+          port: 22
+          command: |
+            cd /var/www/html/perpustakaan
+            git fetch --all
