@@ -26,6 +26,7 @@ use SLiMS\Url;
 use SLiMS\DB;
 use SLiMS\Json;
 use SLiMS\Captcha\Factory as Captcha;
+use SLiMS\Filesystems\Storage;
 use Volnix\CSRF\CSRF;
 use SLiMS\Plugins;
 
@@ -509,6 +510,88 @@ if ($is_member_login) :
         return $_result;
     }
 
+    /* Experimental Upload TA */
+    function showThesis() {
+      global $dbs, $sysconf;
+      include_once 'plugins/skripsi/helper.php';
+
+      // if set to add new skripsi
+      if (isset($_GET['do']) && $_GET['do'] == 'add') {
+        showFormAddSkripsi();
+        return;
+      }
+
+      // if set save skripsi
+      if (isset($_GET['do']) AND $_GET['do'] == 'save') {
+        if (empty($_FILES['file']['name'])) {
+          redirect()->withMessage('error', __('File is required'))->back();
+        }
+
+        // save file
+        $file_disk = Storage::files();
+        $file_name = $_SESSION['mid'] . '.pdf';
+        $pdf_upload = $file_disk->upload('file', function($files) use($sysconf, $file_name) {
+          // ekstension check
+          $files->isExtensionAllowed(['.pdf']);
+          // size check
+          $files->isLimitExceeded($sysconf['max_upload'] * 1024);
+          // destroy it if failed
+          if (! empty($files->getError())) $files->destroyIfFailed();
+        })->as('skripsi' . DS . $file_name);
+
+        // check if upload failed
+        if (! $pdf_upload->getUploadStatus()) {
+          redirect()->withMessage('error', __('Upload failed! File type not allowed or the size is more than'). ' ' .($sysconf['max_upload']/1024).' MB')->back();
+        }
+        
+        // save to database
+        $data = [
+          'id' => 0,
+          'member_id' => $_SESSION['mid'],
+          'title' => $dbs->escape_string($_POST['title']),
+          'year' => intval($_POST['year']),
+          'file' => $file_name,
+          'is_valid' => 0,
+          'created_at' => date('Y-m-d H:i:s'),
+          'updated_at' => date('Y-m-d H:i:s'),
+        ];
+        // arrange $data into string for query
+        $data = implode(',', array_map(function($v, $k) { return sprintf("%s='%s'", $k, $v); }, $data, array_keys($data)));
+        // insert to database
+        $dbs->query("INSERT INTO skripsi SET $data");
+      }
+
+      // table spec
+      $_table_spec = 'skripsi AS s LEFT JOIN member AS m ON s.member_id=m.member_id';
+      // create datagrid
+      $_skripsi = new simbio_datagrid();
+      $_skripsi->disable_paging = true;
+      $_skripsi->table_ID = 'skripsi';
+      $_skripsi->setSQLColumn('s.title AS \'' . __('Title') . '\'',
+          's.year AS \'' . __('Graduated Year') . '\'',
+          's.updated_at AS \'' . __('Updated') . '\'',
+          's.is_valid AS \'' . __('Status') . '\'',
+          's.is_valid AS \'' . __('Action') . '\'');
+      $_skripsi->modifyColumnContent(2, 'callback{translateDate}');
+      $_skripsi->modifyColumnContent(3, 'callback{translateStatus}');
+      $_skripsi->modifyColumnContent(4, 'callback{showAction}');
+      $_skripsi->setSQLorder('s.updated_at DESC');
+      $_criteria = sprintf('m.member_id=\'%s\'', $_SESSION['mid']);
+      $_skripsi->setSQLCriteria($_criteria);
+
+      // modify column value
+      $_skripsi->table_attr = 'align="center" class="memberSkripsiList table table-striped" cellpadding="5" cellspacing="0"';
+      $_skripsi->table_header_attr = 'class="dataListHeader" style="font-weight: bold;"';
+      $_skripsi->using_AJAX = false;
+      // return the result
+      $_result = $_skripsi->createDataGrid($dbs, $_table_spec, 5);
+      if ($_skripsi->num_rows == 0) {
+        $_result = '<div class="my-3">
+          <a href="?p=member&sec=thesis&do=add" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>&nbsp;&nbsp; ' . __('Add Skripsi') . '</a></div>' . $_result;
+      }
+      return $_result;
+    }
+
     /*
        * Function to show member collection basket
        *
@@ -801,6 +884,10 @@ if ($is_member_login) :
                             'text' => __('Loan History'),
                             'link' => 'index.php?p=member&sec=loan_history'
                         ],
+                        'thesis' => [
+                            'text' => __('TA/Skripsi/Tesis'),
+                            'link' => 'index.php?p=member&sec=thesis'
+                        ],
                         // 'my_account' => [
                         //     'text' => __('My Account'),
                         //     'link' => 'index.php?p=member&sec=my_account'
@@ -843,19 +930,25 @@ if ($is_member_login) :
                             echo '</div>';
                             echo showLoanHist();
                             break;
-                        case 'my_account':
+                        case 'thesis':
                             echo '<div class="tagline">';
-                            echo '<div class="memberInfoHead">' . __('Member Detail') . '</div>' . "\n";
+                            echo '<div class="memberInfoHead">' . __('TA/Skripsi/Tesis') . '</div>' . "\n";
                             echo '</div>';
-                            echo showMemberDetail();
-                            // change password only form NATIVE authentication, not for others such as LDAP
-                            if ($sysconf['auth']['member']['method'] == 'native') {
-                                echo '<div class="tagline">';
-                                echo '<div class="memberInfoHead mt-8">' . __('Change Password') . '</div>' . "\n";
-                                echo '</div>';
-                                echo changePassword();
-                            }
+                            echo showThesis();
                             break;
+                        // case 'my_account':
+                        //     echo '<div class="tagline">';
+                        //     echo '<div class="memberInfoHead">' . __('Member Detail') . '</div>' . "\n";
+                        //     echo '</div>';
+                        //     echo showMemberDetail();
+                        //     // change password only form NATIVE authentication, not for others such as LDAP
+                        //     if ($sysconf['auth']['member']['method'] == 'native') {
+                        //         echo '<div class="tagline">';
+                        //         echo '<div class="memberInfoHead mt-8">' . __('Change Password') . '</div>' . "\n";
+                        //         echo '</div>';
+                        //         echo changePassword();
+                        //     }
+                        //     break;
                     }
                     ?>
                 </div>

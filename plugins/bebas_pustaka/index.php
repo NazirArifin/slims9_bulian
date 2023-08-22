@@ -112,6 +112,23 @@ if (isset($_POST['saveData']) && $can_read) {
     toastr(__('Member still has an active loan'))->error();
     die();
   }
+
+  // cari di skripsi hanya jika checkingOptions contains skripsi
+  if (isset($_POST['checkingOptions']) && in_array('skripsi', $_POST['checkingOptions'])) {
+    $sql_string = 'SELECT id, is_valid FROM skripsi WHERE member_id = "' . $memberID . '" LIMIT 1';
+    $result = $dbs->query($sql_string);
+    // jika tidak ada skripsi yang diupload, maka tidak perlu dicek
+    if ($result->num_rows == 0) {
+      toastr(__('Member has not uploaded any skripsi'))->error();
+      die();
+    }
+    $row = $result->fetch_assoc();
+    // jika ada skripsi yang diupload, maka cek apakah skripsi tersebut sudah divalidasi oleh admin
+    if ($row['is_valid'] == 0) {
+      toastr(__('Skripsi has not been validated'))->error();
+      die();
+    }
+  }
   
   $sql_string = 'INSERT INTO free_loan (member_id, academic_year, reason, created_at) VALUES ("' . $memberID . '", "' . $academicYear . '", "' . $reason . '", "' . date('Y-m-d H:i:s') . '")';
   $dbs->query($sql_string);
@@ -220,7 +237,12 @@ if (isset($_GET['do']) && $_GET['do'] == 'add') {
   $form->addSelectList('academicYear', __('Academic Year') . '*' , $thAjaran, $selectedThAjaran, 'class="form-control col-4"');
   // alasan
   $form->addTextField('textarea', 'reason', __('Reason') . '*', '', 'class="form-control col-8"');
-
+  // pengecekan apakah di loan atau juga di upload skripsi/tesis
+  $form->addCheckBox('checkingOptions', __('Loan Checking'), [
+    ['loan', __('Loan')],
+    ['skripsi', __('Skripsi/Tesis')]
+  ], 'loan', 'items for checking');
+  
   echo $form->printOut();
   die();
 }

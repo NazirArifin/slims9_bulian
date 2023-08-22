@@ -57,12 +57,15 @@ strong {
 }
 
 #front-card {
-  background-color: <?php echo $sysconf['print']['membercard']['fr_color']??'#E5E5E5';  ?>;    
+  background-color: <?php echo $sysconf['print']['membercard']['fr_color']??'#E5E5E5';  ?>;
+  /* background-image: url("<?php echo $card_path.'images/'.$sysconf['print']['membercard']['front_side_image'] ?>"); */
+  background-image: url("<?php echo $card_path.'images/bg-front.jpg' ?>");
+  background-size: cover;
 }
 
 #front-card header {
   padding: 15px 10px;
-  background-color: #fff;
+  /* background-color: #fff; */
   text-transform: uppercase;
   color: <?php echo $sysconf['print']['membercard']['header_font_color']??'#000'; ?> !important;  
 }
@@ -88,17 +91,22 @@ strong {
 
 .identity {
   padding: 15px;
+  padding-top: 60px;
 }
 
 .identity h1 {
   max-width: 80%;
-  height: 40px;
+  /* height: 40px; */
   text-transform: uppercase;
+}
+.identity h3 {
+  margin-top: 0px;
+  margin-bottom: 30px;
 }
 
 .photo {
   position: absolute;
-  top: 25px;
+  top: 60px;
   right: 15px;
   width: 55px;
   height: 55px;
@@ -156,10 +164,14 @@ strong {
   line-height: 0;
 }
 
+.white {
+  color: #fff;
+}
+
 .code {
   position: absolute;
-  right: 10px;
-  bottom: 5px;
+  right: -3px;
+  bottom: 60px;
 }
 
 .barcode {
@@ -195,7 +207,7 @@ strong {
   text-align: center;
   position: absolute;
   right: 15px;
-  bottom: 15px;
+  bottom: 8px;
   line-height: 1;
 }
 
@@ -253,16 +265,17 @@ strong {
     <td>
     <!-- Frontcard -->
     <section id="front-card">
-      <header>
+      <!-- <header>
         <div class="logo">
           <img src="<?php echo $card_logo ?>" alt="No Photo">
           <div class="sub-brand"><?php echo $sysconf['print']['membercard']['front_header1_text'] ?></div>
           <div class="brand"><?php echo $sysconf['print']['membercard']['front_header2_text'] ?></div>
         </div>
-      </header>
+      </header> -->
       <main>
         <div class="identity">
           <h1><?php echo $card['member_name'] ?></h1>
+          <h3><?php echo $card['member_id'] ?></h3>
           <?php if(($card['member_image'] != '') || (file_exists(SWB.IMG.'/persons/'.$card['member_image']))) : ?>
           <div class="photo">
             <img src="<?php echo SWB.IMG ?>/persons/<?php echo $card['member_image'] ?>" alt="">
@@ -275,7 +288,7 @@ strong {
           </div>
           <?php endif ?>
           <div class="personality">
-            <?php if($card['pin'] != '') : ?>
+            <!-- <?php if($card['pin'] != '') : ?>
             <div class="noid">
               <strong><?php echo __('Personal ID Number') ?></strong>
               <p><?php echo $card['pin'] ?></p>
@@ -286,12 +299,14 @@ strong {
               <strong><?php echo __('Phone Number') ?></strong>
               <p><?php echo $card['member_phone'] ?></p>
             </div>
-            <?php endif ?>
-            <div class="code">
-              <div class="expired">Exp. <strong><?php echo $card['expire_date'] ?></strong></div>
-              <div class="barcode">
-                <img src="<?php echo SWB.IMG.'/barcodes/'.str_replace(array(' '), '_', $card['member_id']) ?>.png" alt="No  Barcode">
-              </div>
+            <?php endif ?> -->
+            
+          </div>
+
+          <div class="code">
+            <!-- <div class="expired"><?php echo str_repeat('&nbsp;', 10) ?><strong><?php echo $card['member_id'] ?></strong></div> -->
+            <div class="barcode">
+              <img src="<?php echo SWB.IMG.'/barcodes/'.str_replace(array(' '), '_', $card['member_id']) ?>.png" alt="No  Barcode">
             </div>
           </div>
         </div>
@@ -303,15 +318,15 @@ strong {
     <!-- Backcard -->
     <section id="back-card">
         <div class="rules">
-          <strong><?php echo __('Library Rules') ?></strong>
+          <!-- <strong><?php echo __('Library Rules') ?></strong> -->
           <?php echo html_entity_decode($sysconf['print']['membercard']['rules']) ?>
         </div>
 
         <div class="sign">
-          <div class="time"><?php echo $sysconf['print']['membercard']['city']?>, <?php echo date('d M Y',strtotime($card['register_date'])) ?></div>
-          <div class="position"><?php echo $sysconf['print']['membercard']['title'] ?></div>
+          <div class="time white"><strong><?php echo $sysconf['print']['membercard']['city']?>, <?php echo date('d M Y',strtotime($card['register_date'])) ?></strong></div>
+          <div class="position white"><?php echo $sysconf['print']['membercard']['title'] ?></div>
           <img class="signature" src="<?php echo $card_signature ?>" alt="No signature">
-          <img class="stamp" src="<?php echo $card_stamp ?>" alt="No stamp">
+          <!-- <img class="stamp" src="<?php echo $card_stamp ?>" alt="No stamp"> -->
           <div class="librarian"><?php echo $sysconf['print']['membercard']['officials'] ?></div>
           <div class="uid"><?php echo $sysconf['print']['membercard']['officials_id'] ?></div>
         </div>
