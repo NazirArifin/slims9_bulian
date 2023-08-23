@@ -516,7 +516,7 @@ if ($is_member_login) :
       include_once 'plugins/skripsi/helper.php';
 
       // if set to add new skripsi
-      if (isset($_GET['do']) && $_GET['do'] == 'add') {
+      if (isset($_GET['do']) && ($_GET['do'] == 'add' || $_GET['do'] == 'edit')) {
         showFormAddSkripsi();
         return;
       }
@@ -543,7 +543,7 @@ if ($is_member_login) :
         if (! $pdf_upload->getUploadStatus()) {
           redirect()->withMessage('error', __('Upload failed! File type not allowed or the size is more than'). ' ' .($sysconf['max_upload']/1024).' MB')->back();
         }
-        
+
         // save to database
         $data = [
           'id' => 0,
@@ -555,10 +555,20 @@ if ($is_member_login) :
           'created_at' => date('Y-m-d H:i:s'),
           'updated_at' => date('Y-m-d H:i:s'),
         ];
-        // arrange $data into string for query
-        $data = implode(',', array_map(function($v, $k) { return sprintf("%s='%s'", $k, $v); }, $data, array_keys($data)));
-        // insert to database
-        $dbs->query("INSERT INTO skripsi SET $data");
+
+        // apakah skripsi sudah ada?
+        $skripsi = $dbs->query("SELECT * FROM skripsi WHERE member_id = '{$_SESSION['mid']}'");
+        if ($skripsi->num_rows > 0) {
+          unset($data['created_at']);
+          unset($data['member_id']);
+          unset($data['id']);
+          $dbs->query("UPDATE skripsi SET " . implode(',', array_map(function($v, $k) { return sprintf("%s='%s'", $k, $v); }, $data, array_keys($data))) . " WHERE id = {$skripsi->fetch_assoc()['id']}");
+        } else {
+          // arrange $data into string for query
+          $data = implode(',', array_map(function($v, $k) { return sprintf("%s='%s'", $k, $v); }, $data, array_keys($data)));
+          // insert to database
+          $dbs->query("INSERT INTO skripsi SET $data");
+        }
       }
 
       // table spec
@@ -571,7 +581,7 @@ if ($is_member_login) :
           's.year AS \'' . __('Graduated Year') . '\'',
           's.updated_at AS \'' . __('Updated') . '\'',
           's.is_valid AS \'' . __('Status') . '\'',
-          's.is_valid AS \'' . __('Action') . '\'');
+          'CONCAT(s.is_valid, " ", s.id) AS \'' . __('Action') . '\'');
       $_skripsi->modifyColumnContent(2, 'callback{translateDate}');
       $_skripsi->modifyColumnContent(3, 'callback{translateStatus}');
       $_skripsi->modifyColumnContent(4, 'callback{showAction}');

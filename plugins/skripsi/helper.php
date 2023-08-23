@@ -8,6 +8,8 @@ use GuzzleHttp\Client;
 
 defined('INDEX_AUTH') OR die('Direct Access Not Allowed!');
 
+use SLiMS\Filesystems\Storage;
+
 function translateProdi($prodi) {
   $prodiList = [
     '11' => [ 'nama' => 'HUKUM', 'strata' => 'S1' ],
@@ -30,6 +32,8 @@ function translateProdi($prodi) {
 }
 
 function showFormAddSkripsi() {
+  global $dbs;
+
   $client = new Client([
     'base_uri' => 'https://api.unira.ac.id',
     'timeout'  => 2.0,
@@ -95,6 +99,18 @@ function showFormAddSkripsi() {
     <?php
     unset($_SESSION['flash']);
   }
+
+  // jika sedang mengedit
+  $file = '';
+  $year = date('Y');
+  if ($_GET['do'] == 'edit') {
+    $query = $dbs->query('SELECT file, year FROM skripsi WHERE member_id = \'' . $dbs->escape_string($_SESSION['mid']) . '\'');
+    if ($query->num_rows) {
+      $row = $query->fetch_row();
+      $file = $row[0];
+      $year = $row[1];
+    }
+  }
  
  ?>
     
@@ -118,7 +134,7 @@ function showFormAddSkripsi() {
             <option value="">Pilih Tahun</option>
             <?php
               for ($i = date('Y'); $i >= 2000; $i--) {
-                echo '<option value="' . $i . '"' . ($i == date('Y') ? ' selected' : '') . '>' . $i . '</option>';
+                echo '<option value="' . $i . '"' . ($i == $year ? ' selected' : '') . '>' . $i . '</option>';
               }
             ?>
           </select>
@@ -128,6 +144,11 @@ function showFormAddSkripsi() {
         <label for="skripsiFile" class="col-sm-2 col-form-label">File Skripsi/Tesis</label>
         <div class="col-sm-6">
           <!-- <div class="custom-file"> -->
+            <?php
+              if ($file) {
+                echo '<a href="/files/skripsi/' . $file . '" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-download"></i> '. $file .'</a>';
+              }
+            ?><hr>
             <input type="file" name="file" id="customFile" accept=".pdf">
             <!-- <label class="custom-file-label" for="customFile">Choose file</label> -->
           <!-- </div> -->
@@ -152,31 +173,64 @@ function translateDate($obj_db, $array_data) {
   return implode('/', array_reverse(explode('-', $date))) . ' ' . $time;
 }
 
-function translateStatus($obj_db, $array_data) {
-  $status = $array_data[3];
-  $statusList = [
+function getStatusList() {
+  return $statusList = [
     '0' => 'Menunggu Verifikasi',
     '1' => 'Sudah Diverifikasi',
     '2' => 'Ditolak',
   ];
-  return $statusList[$status];
+}
+
+function translateStatus($obj_db, $array_data) {
+  return getStatusList()[$array_data[3]];
+}
+
+function translateStatusAdmin($obj_db, $array_data) {
+  return getStatusList()[$array_data[2]];
 }
 
 function showAction($obj_db, $array_data) {
-  if ($array_data[4] == 3) {
-    return '<a href="?p=member&sec=thesis&do=delete&id=' . $array_data[0] . '" class="btn btn-sm btn-danger">Edit</a>';
+  if (explode(' ', $array_data[4])[0] == 2) {
+    return '<a href="?p=member&sec=thesis&do=edit&id=' . explode(' ', $array_data[4])[1] . '" class="btn btn-sm btn-primary">Edit</a>';
   }
 }
 
 function showFile($obj_db, $array_data) {
-  return '<a href="/files/skripsi/'. $array_data[0] .'" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-download"></i></a>';
+  return '<a href="/files/skripsi/'. $array_data[3] .'" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-download"></i></a>';
 }
 
 function showActionAdmin($obj_db, $array_data) {
   if ($array_data[4] == 0) {
     return '
-      <button type="button" onclick="verifySkripsi(\'' . $array_data[0] . '\', '. $array_data[4] .')" class="btn btn-sm btn-success">Verifikasi</button>
-      <button type="button" onclick="deleteSkripsi(\'' . $_SERVER['PHP_SELF']  . '?' . httpQuery(['do' => 'delete', 'mid' => $array_data[0]]) .'\')" class="btn btn-sm btn-danger">Hapus</button>
+      <button type="button" onclick="updateSkripsi(\'' . $_SERVER['PHP_SELF'] . '?' . httpQuery(['do' => 'verify', 'mid' => $array_data[0]]) .'\')" class="btn btn-sm btn-success">Verifikasi</button>
+      <button type="button" onclick="updateSkripsi(\'' . $_SERVER['PHP_SELF']  . '?' . httpQuery(['do' => 'delete', 'mid' => $array_data[0]]) .'\')" class="btn btn-sm btn-danger">Tolak</button>
     '; 
   }
+}
+
+function showMemberImage($obj_db, $array_data){
+  global $sysconf;
+  $imageDisk = Storage::images();
+  $image = 'images/persons/photo.png';
+  $_q = $obj_db->query('SELECT member_image,member_name,member_address,member_phone FROM member WHERE member_id = "'.$array_data[0].'"');
+  if(isset($_q->num_rows)){
+    $_d = $_q->fetch_row();
+    if($_d[0] != NULL){     
+      $image = $imageDisk->isExists('persons/'.$_d[0])?'images/persons/'.$_d[0]:'images/persons/photo.png';
+    }
+    $addr  = $_d[2]!=''?'<i class="fa fa-map-marker" aria-hidden="true"></i></i>&nbsp;'.$_d[2]:'';
+    $phone = $_d[3]!=''?'<i class="fa fa-phone" aria-hidden="true"></i>&nbsp;'.$_d[3]:'';
+  }
+
+   $imageUrl = SWB . 'lib/minigalnano/createthumb.php?filename=' . $image . '&width=120';
+   $_output = '<div class="media"> 
+                <a href="'.$imageUrl.'" class="openPopUp notAJAX" title="'.$_d[1].'" width="300" height="400" >
+                <img class="mr-3 rounded" src="'.$imageUrl.'" alt="cover image" width="60"></a>
+                <div class="media-body">
+                  <div class="title">'.$array_data[1].'</div>
+                  <div class="sub">'.$phone.'</div>
+                  <div class="sub">'.$addr.'</div>
+                </div>
+              </div>';
+   return $_output;
 }

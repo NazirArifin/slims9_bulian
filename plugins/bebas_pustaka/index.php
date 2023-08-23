@@ -124,7 +124,7 @@ if (isset($_POST['saveData']) && $can_read) {
     }
     $row = $result->fetch_assoc();
     // jika ada skripsi yang diupload, maka cek apakah skripsi tersebut sudah divalidasi oleh admin
-    if ($row['is_valid'] == 0) {
+    if ($row['is_valid'] != 1) {
       toastr(__('Skripsi has not been validated'))->error();
       die();
     }

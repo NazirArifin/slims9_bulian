@@ -37,22 +37,27 @@ function httpQuery($query = []) {
 
 // delete skripsi
 if (isset($_GET['do']) && $_GET['do'] == 'delete' && isset($_GET['mid'])) {
-  $dbs->query('DELETE FROM skripsi WHERE member_id = \'' . $dbs->escape_string($_GET['mid']) . '\'');
+  $dbs->query('UPDATE skripsi SET is_valid = 2 WHERE member_id = \'' . $dbs->escape_string($_GET['mid']) . '\'');
   utility::jsToastr(__('Skripsi berhasil dihapus'), 'Data skripsi berhasil dihapus', 'success');
+}
+
+// verify skripsi
+if (isset($_GET['do']) && $_GET['do'] == 'verify' && isset($_GET['mid'])) {
+  $dbs->query('UPDATE skripsi SET is_valid = 1 WHERE member_id = \'' . $dbs->escape_string($_GET['mid']) . '\'');
+  utility::jsToastr(__('Skripsi berhasil diverifikasi'), 'Data skripsi berhasil diverifikasi', 'success');
 }
 
 ?>
   <script type="text/javascript">
 const current = '<?php echo $_SERVER['PHP_SELF'] . '?' . httpQuery() ?>';
 
-function verifySkripsi(mid, status) {
-  console.log(mid, status);
-}
+function updateSkripsi(url) {
+  let message = 'Apakah anda yakin akan menolak data skripsi ini?';
+  if (url.indexOf('verify') > -1) {
+    message = 'Apakah anda yakin akan memverifikasi skripsi ini? Pastikan bahwa file skripsi sudah sesuai dengan ketentuan dan mahasiswa sudah menyerahkan hardcopy skripsi ke perpustakaan';
+  }
 
-function deleteSkripsi(url) {
-  // confirm delete
-  const confirmDelete = confirm('Apakah anda yakin akan menghapus skripsi ini?');
-  if (! confirmDelete) {
+  if (! confirm(message)) {
     return;
   }
   parent.$('#mainContent').simbioAJAX(url);
@@ -81,16 +86,17 @@ $datagrid->setSQLColumn(
   'm.member_id AS \'' . __('Member ID') . '\'',
   'm.member_name AS \'' . __('Member Name') . '\'',
   's.is_valid AS \'' . __('Status') . '\'',
-  's.is_valid AS \'' . __('File') . '\'',
+  's.file AS \'' . __('File') . '\'',
   's.is_valid AS \'' . __('Action') . '\'',
 );
-$datagrid->modifyColumnContent(2, 'callback{translateStatus}');
+$datagrid->modifyColumnContent(1, 'callback{showMemberImage}');
+$datagrid->modifyColumnContent(2, 'callback{translateStatusAdmin}');
 $datagrid->modifyColumnContent(3, 'callback{showFile}');
 $datagrid->modifyColumnContent(4, 'callback{showActionAdmin}');
 $datagrid->setSQLorder('s.is_valid ASC');
 
 // is there any search
-$criteria = 's.member_id IS NOT NULL';
+$criteria = 's.is_valid < 2';
 if (isset($_GET['keywords']) AND $_GET['keywords'] != '') {
   $keywords = $dbs->escape_string($_GET['keywords']);
   $criteria .= ' AND (m.member_id LIKE \'%' . $keywords . '%\' OR m.member_name LIKE \'%' . $keywords . '%\')';
