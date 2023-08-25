@@ -62,6 +62,8 @@ if (isset($_POST['itemID']) AND !empty($_POST['itemID']) AND isset($_POST['itemA
     }
     /* LABEL SESSION ADDING PROCESS */
     $print_count = 0;
+    $print_count_item = 0;
+    $print_count_biblio = 0;
     if (isset($_SESSION['labels']['biblio'])) {
         $print_count_biblio = count($_SESSION['labels']['biblio']);
     }
@@ -301,7 +303,7 @@ HTML;
                 <?php
                 echo __('Maximum') . ' <strong class="text-danger">' . $max_print . '</strong> ' . __('records can be printed at once. Currently there is') . ' ';
                 if (isset($_SESSION['labels'])) {
-                    echo '<strong id="queueCount" class="text-danger">' . @(count($_SESSION['labels']['item']) + count($_SESSION['labels']['biblio'])) . '</strong>';
+                    echo '<strong id="queueCount" class="text-danger">' . @(count($_SESSION['labels']['item'] ?? []) + count($_SESSION['labels']['biblio'] ?? [])) . '</strong>';
                 } else {
                     echo '<strong id="queueCount" class="text-danger">0</strong>';
                 }

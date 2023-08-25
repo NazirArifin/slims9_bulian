@@ -88,7 +88,7 @@ $plugin->registerHook('membership_init', function() {
   $data['postal_code'] = '';
   $data['member_notes'] = '';
   $data['member_email'] = $json['data']['attributes']['email'];
-  $data['is_pending'] = 0;
+  $data['is_pending'] = '0';
   $data['input_date'] = date('Y-m-d');
   $data['last_update'] = date('Y-m-d');
   $data['mpasswd'] = password_hash($password, PASSWORD_BCRYPT);
@@ -103,12 +103,21 @@ $plugin->registerHook('membership_init', function() {
     }
 
     $data['member_type_id'] = 1;
-    $data['gender'] = $json['data']['attributes']['jenisKelamin'] == 'L' ? 1 : 0;
+    $data['gender'] = $json['data']['attributes']['jenisKelamin'] == 'L' ? 1 : '0';
   }
   // jika $type == 'dkr', maka kita cek di tabel member
   if ($type == 'dkr') {
     $data['member_type_id'] = 2;
     $data['gender'] = 1;
+  }
+
+  // download image and then save to
+  $filename = 'images/persons/member_' . $idUser . '.jpg';
+  if (! file_exists($filename)) {  
+    $client->get('https://api.unira.ac.id/' . $json['data']['attributes']['thumbnail'], ['sink' => $filename]);
+    if (file_exists($filename)) {
+      $data['member_image'] = basename($filename);
+    }
   }
 
   // create sql op object
@@ -123,13 +132,6 @@ $plugin->registerHook('membership_init', function() {
     $update = $sql_op->update('member', $data, "member_id = '$idUser'");
     Plugins::getInstance()->execute(Plugins::MEMBERSHIP_AFTER_UPDATE, ['data' => api::member_load($dbs, $data['member_id'])]);
   } else {
-    // download image and then save to
-    $filename = 'images/persons/member_' . $idUser . '.jpg';
-    $client->get('https://api.unira.ac.id/' . $json['data']['attributes']['thumbnail'], ['sink' => $filename]);
-    if (file_exists($filename)) {
-      $data['member_image'] = basename($filename);
-    }
-
     $insert = $sql_op->insert('member', $data);
     Plugins::getInstance()->execute(Plugins::MEMBERSHIP_AFTER_SAVE, ['data' => api::member_load($dbs, $data['member_id'])]);
   }
