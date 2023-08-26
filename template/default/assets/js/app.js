@@ -272,7 +272,7 @@ Vue.component('slims-member', {
                                 class: 'text-grey-darker ml-1'
                             },
                             domProps: {
-                                innerHTML: 'Loans'
+                                innerHTML: 'Pinjaman'
                             }
                         }),
                         createElement('span', {
@@ -287,7 +287,7 @@ Vue.component('slims-member', {
                                 class: 'text-grey-darker ml-1'
                             },
                             domProps: {
-                                innerHTML: 'Title'
+                                innerHTML: 'Judul'
                             }
                         }),
                     ])

@@ -71,14 +71,15 @@ define('CANT_UPDATE_PASSWD', -3);
 // if member is logged out
 if (isset($_GET['logout']) && $_GET['logout'] == '1') {
     // write log
-    utility::writeLogs($dbs, 'member', $_SESSION['email'], 'Login', $_SESSION['member_name'] . ' Log Out from address ' . ip());
+    // utility::writeLogs($dbs, 'member', $_SESSION['email'], 'Login', $_SESSION['member_name'] . ' Log Out from address ' . ip());
     // completely destroy session cookie
     simbio_security::destroySessionCookie(null, MEMBER_COOKIES_NAME, SWB, false);
-    redirect()->withHeader([
-        ['Cache-Control', 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0'],
-        ['Expires', 'Sat, 26 Jul 1997 05:00:00 GMT'],
-        ['Pragma', 'no-cache']
-    ])->to('?p=member');
+    redirect()->to('?p=member');
+    // redirect()->withHeader([
+    //     ['Cache-Control', 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0'],
+    //     ['Expires', 'Sat, 26 Jul 1997 05:00:00 GMT'],
+    //     ['Pragma', 'no-cache']
+    // ])->to('?p=member');
 }
 
 // if there is member login action
