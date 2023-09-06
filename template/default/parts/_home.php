@@ -123,6 +123,17 @@ $content_list = $content->getContents($dbs, 3);
 </section>
 <?php endif; ?>
 
+<!-- <section class="mt-5 bg-white">
+    <div class="container py-5">
+        <h4 class="mb-4">
+            <?php echo __('Online Journal');?>
+            <br>
+            <small class="subtitle-section"><?php echo __('Our online journal collection. Hope you enjoy it.');?></small>
+        </h4>
+        
+    </div>
+</section> -->
+
 <?php if ($sysconf['template']['classic_map']) : ?>
 <section class="my-5 container">
     <div class="row align-items-center">

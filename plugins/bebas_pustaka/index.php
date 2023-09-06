@@ -67,10 +67,11 @@ Plugins::getInstance()->execute(Plugins::MEMBERSHIP_INIT);
 function showPrintButton($obj_db, $array_data) {
   $data = [
     'reason' => $array_data[3],
-    'created' => date('d-m-Y', strtotime($array_data[4]))
+    'created' => date('d-m-Y', strtotime($array_data[4])),
+    'academic_year' => explode('-', $array_data[5])[1],
   ];
 
-  return '<a href="https://api.unira.ac.id/print/bebaspustaka/' . $array_data[0] . '/' . $array_data[5] . '?' . http_build_query($data) . '" class="btn btn-default btn-sm" title="' . __('Print') . '" target="_blank"><i class="fa fa-print"></i></a>';
+  return '<a href="https://api.unira.ac.id/print/bebaspustaka/' . $array_data[0] . '/' . explode('-', $array_data[5])[0] . '?' . http_build_query($data) . '" class="btn btn-default btn-sm" title="' . __('Print') . '" target="_blank"><i class="fa fa-print"></i></a>';
 }
 
 
@@ -275,7 +276,7 @@ $datagrid->setSQLColumn(
   'mt.member_type_name AS \'' . __('Membership Type') . '\'',
   'fl.reason AS \'' . __('Reason') . '\'',
   'fl.created_at AS \'' . __('Created At') . '\'',
-  'fl.id AS \'' . __('Action') . '\''
+  'CONCAT(fl.id, \'-\', fl.academic_year) AS \'' . __('Action') . '\''
 );
 // $datagrid->modifyColumnContent(0, 'callback{showMemberImage}');
 $datagrid->modifyColumnContent(5, 'callback{showPrintButton}');
