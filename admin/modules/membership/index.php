@@ -701,7 +701,7 @@ $(document).ready(function() {
         if($_d[0] != NULL){     
           $image = $imageDisk->isExists('persons/'.$_d[0])?'images/persons/'.$_d[0]:'images/persons/photo.png';
         }
-        $addr  = $_d[2]!=''?'<i class="fa fa-map-marker" aria-hidden="true"></i></i>&nbsp;'.$_d[2]:'';
+        $addr  = $_d[2]!=''?'<i class="fa fa-map-marker" aria-hidden="true"></i></i>&nbsp;' . htmlentities($_d[2]) : '';
         $phone = $_d[3]!=''?'<i class="fa fa-phone" aria-hidden="true"></i>&nbsp;'.$_d[3]:'';
       }
 
@@ -712,7 +712,7 @@ $(document).ready(function() {
                     <div class="media-body">
                       <div class="title">'.$array_data[2].'</div>
                       <div class="sub">'.$phone.'</div>
-                      <div class="sub">'. htmlentities($addr).'</div>
+                      <div class="sub">'. $addr .'</div>
                     </div>
                   </div>';
        return $_output;
