@@ -73,6 +73,7 @@ function showPrintButton($obj_db, $array_data) {
 
   return '<a href="https://api.unira.ac.id/print/bebaspustaka/' . $array_data[0] . '/' . explode('-', $array_data[5])[0] . '?' . http_build_query($data) . '" class="btn btn-default btn-sm" title="' . __('Print') . '" target="_blank"><i class="fa fa-print"></i></a>';
 }
+ 
 
 
 /**
