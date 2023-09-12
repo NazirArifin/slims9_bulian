@@ -203,7 +203,7 @@ if (isset($_GET['action']) AND $_GET['action'] == 'print') {
             }
             // explode label data by space except callnumber
             $sliced_label = preg_split("/((?<=\w)\s+(?=\D))|((?<=\D)\s+(?=\d))/m", $label);
-            $html_str .= '<div class="labelStyle">';
+            $html_str .= '<div class="labelStyle" style="text-align: center">';
             foreach ($sliced_label as $slice_label_item) {
                 $html_str .= $slice_label_item . '<br />';
             }
