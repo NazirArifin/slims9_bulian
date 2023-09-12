@@ -30,33 +30,6 @@ if (! $can_read) {
 // execute registered hook
 Plugins::getInstance()->execute(Plugins::MEMBERSHIP_INIT);
 
-// function showMemberImage($obj_db, $array_data){
-//   global $sysconf;
-//   $imageDisk = Storage::images();
-//   $image = 'images/persons/photo.png';
-//   $_q = $obj_db->query('SELECT member_image,member_name,member_address,member_phone FROM member WHERE member_id = "'.$array_data[0].'"');
-//   if(isset($_q->num_rows)){
-//     $_d = $_q->fetch_row();
-//     if($_d[0] != NULL){     
-//       $image = $imageDisk->isExists('persons/'.$_d[0])?'images/persons/'.$_d[0]:'images/persons/photo.png';
-//     }
-//     $addr  = $_d[2]!=''?'<i class="fa fa-map-marker" aria-hidden="true"></i></i>&nbsp;'.$_d[2]:'';
-//     $phone = $_d[3]!=''?'<i class="fa fa-phone" aria-hidden="true"></i>&nbsp;'.$_d[3]:'';
-//   }
-
-//   $imageUrl = SWB . 'lib/minigalnano/createthumb.php?filename=' . $image . '&width=120';
-//   $_output = '<div class="media"> 
-//               <a href="'.$imageUrl.'" class="openPopUp notAJAX" title="'.$_d[1].'" width="300" height="400" >
-//               <img class="mr-3 rounded" src="'.$imageUrl.'" alt="cover image" width="60"></a>
-//               <div class="media-body">
-//                 <div class="title">'.$array_data[2].'</div>
-//                 <div class="sub">'.$phone.'</div>
-//                 <div class="sub">'.$addr.'</div>
-//               </div>
-//             </div>';
-//   return $_output;
-// }
-
 /**
  * Generates a print button link for the Bebas Pustaka plugin.
  *
@@ -237,8 +210,16 @@ if (isset($_GET['do']) && $_GET['do'] == 'add') {
   $form->addAnything(__('Member ID').'*', $str_input);
   // tahun akademik
   $form->addSelectList('academicYear', __('Academic Year') . '*' , $thAjaran, $selectedThAjaran, 'class="form-control col-4"');
+  
   // alasan
-  $form->addTextField('textarea', 'reason', __('Reason') . '*', '', 'class="form-control col-8"');
+  // $form->addTextField('textarea', 'reason', __('Reason') . '*', '', 'class="form-control col-8"');
+  $form->addSelectList('reason', __('Reason') . '*', [
+    '' => __('Select Reason'),
+    'bss' => __('Temporary Studi Suspension (BSS)'),
+    'bst' => __('Permanently Stop Studying (BST)'),
+    'ijazah' => __('Graduation Certificate Retrieval (Ijazah)')
+  ], '', 'class="form-control col-4"');
+  
   // pengecekan apakah di loan atau juga di upload skripsi/tesis
   $form->addCheckBox('checkingOptions', __('Loan Checking'), [
     ['loan', __('Loan')],
