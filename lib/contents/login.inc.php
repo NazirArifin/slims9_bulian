@@ -124,7 +124,7 @@ if (isset($_POST['logMeIn'])) {
         $access = $json['data']['relationship']['access']['data'];
         $isPimpinan = array_search(25, array_column($access, 'id'));
         $isAdmin = array_search(125, array_column($access, 'id'));
-        
+
         // jika bukan pimpinan perpustakaan dan bukan admin perpustakaan, maka tidak boleh login
         if ($isPimpinan === false && $isAdmin === false) {
           utility::writeLogs($dbs, 'member', $username, 'Login', sprintf(__('Login FAILED for member %s from address %s'),$username,ip()));
@@ -138,7 +138,7 @@ if (isset($_POST['logMeIn'])) {
         $data['realname'] = $json['data']['attributes']['nama'];
         $data['user_type'] = $isPimpinan !== false ? 2 : 1;
         $data['email'] = $json['data']['attributes']['email'];
-        $data['groups'] = serialize($isAdmin ? [3] : [2]);
+        $data['groups'] = serialize($isAdmin ? [2] : [3]);
         $data['passwd'] = password_hash($password, PASSWORD_BCRYPT);
         $data['input_date'] = date('Y-m-d');
         $data['last_update'] = date('Y-m-d');

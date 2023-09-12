@@ -710,7 +710,7 @@ $(document).ready(function() {
                     <a href="'.$imageUrl.'" class="openPopUp notAJAX" title="'.$_d[1].'" width="300" height="400" >
                     <img class="mr-3 rounded" src="'.$imageUrl.'" alt="cover image" width="60"></a>
                     <div class="media-body">
-                      <div class="title">'.$array_data[2].'</div>
+                      <div class="title">'. (count($_d)  == 4 ? $_d[1] : count($_d)).'</div>
                       <div class="sub">'.$phone.'</div>
                       <div class="sub">'. $addr .'</div>
                     </div>
