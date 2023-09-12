@@ -712,7 +712,7 @@ $(document).ready(function() {
                     <div class="media-body">
                       <div class="title">'.$array_data[2].'</div>
                       <div class="sub">'.$phone.'</div>
-                      <div class="sub">'.$addr.'</div>
+                      <div class="sub">'. htmlentities($addr).'</div>
                     </div>
                   </div>';
        return $_output;
