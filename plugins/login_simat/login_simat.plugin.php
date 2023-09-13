@@ -118,6 +118,8 @@ $plugin->registerHook('membership_init', function() {
     if (file_exists($filename)) {
       $data['member_image'] = basename($filename);
     }
+  } else {
+    $data['member_image'] = basename($filename);
   }
 
   // create sql op object

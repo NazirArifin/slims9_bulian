@@ -895,15 +895,22 @@ if ($is_member_login) :
                             'text' => __('Loan History'),
                             'link' => 'index.php?p=member&sec=loan_history'
                         ],
-                        'thesis' => [
-                            'text' => __('TA/Skripsi/Tesis'),
-                            'link' => 'index.php?p=member&sec=thesis'
-                        ],
+                        // 'thesis' => [
+                        //     'text' => __('TA/Skripsi/Tesis'),
+                        //     'link' => 'index.php?p=member&sec=thesis'
+                        // ],
                         // 'my_account' => [
                         //     'text' => __('My Account'),
                         //     'link' => 'index.php?p=member&sec=my_account'
                         // ]
                     ];
+                    if ($_SESSION['m_member_type_id'] == 1) {
+                      $tabs_menus['thesis'] = [
+                        'text' => __('TA/Skripsi/Tesis'),
+                        'link' => 'index.php?p=member&sec=thesis'
+                      ];
+                    }
+
                     $section = isset($_GET['sec']) ? trim($_GET['sec']) : 'current_loan';
                     foreach ($tabs_menus as $km => $kv) {
                         $active = $section === $km ? 'active' : '';
