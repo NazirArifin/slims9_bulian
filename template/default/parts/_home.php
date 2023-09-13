@@ -112,7 +112,7 @@ $content_list = $content->getContents($dbs, 3);
 
 <?php if ($sysconf['template']['classic_top_reader']) : ?>
 <section class="mt-5 bg-white">
-    <div class="container py-5">
+    <div class="container pt-5 pb-3">
         <h4 class="mb-4">
             <?php echo __('Top reader of the year');?>
             <br>
@@ -123,16 +123,23 @@ $content_list = $content->getContents($dbs, 3);
 </section>
 <?php endif; ?>
 
-<!-- <section class="mt-5 bg-white">
-    <div class="container py-5">
-        <h4 class="mb-4">
+<section class="mt-0 pb-5 bg-white">
+    <div class="container pb-5 pt-3">
+        <h4 class="mb-5">
             <?php echo __('Online Journal');?>
-            <br>
-            <small class="subtitle-section"><?php echo __('Our online journal collection. Hope you enjoy it.');?></small>
+            <!-- <br>
+            <small class="subtitle-section"><?php echo __('Our online journal collection. Hope you enjoy it.');?></small> -->
         </h4>
-        
+        <div class="flex" style="justify-content: center; align-items: center;">
+            <a href="//ejournal.unira.ac.id" target="_blank"><img style="height: 90px;" class="mx-2" src="/images/default/logo.png" alt="ejournal unira"></a>
+            <a href="//search.epnet.com" target="_blank"><img style="height: 80px;" class="mx-2" src="/images/default/logo_ehost.png" alt="ehost"></a>
+            <a href="//www.emeraldinsight.com/page/openaccess" target="_blank"><img style="height: 80px;" class="mx-2" src="/images/default/emerald-logo.png" alt="emerald"></a>
+            <a href="//http://galeauth.galegroup.com/auth/capmAuthentication.do?userGroupName=kpt07046&origURL=http%3A%2F%2Fgaleapps.galegroup.com%2Fapps%2Fauth%2Fkpt07046%3Fcause%3Dhttp%253A%252F%252Ffind.galegroup.com%252Fmenu%252Fcommonmenu.do%253FuserGroupName%253Dkpt07046%2526finalAuth%253Dtrue%26authCount%3D1&isCookieCheckDone=false" target="_blank"><img style="height: 80px;" class="mx-2" src="/images/default/gale.png" alt="gale"></a>
+            <a href="//scholar.google.co.id" target="_blank"><img style="height: 80px;" class="mx-2" src="/images/default/Google_Scholar.png" alt="Google Scholar"></a>
+            <a href="//https://www.sciencedirect.com/search?qs=management&show=25&sortBy=relevance&accessTypes=openaccess&lastSelectedFacet=accessTypes" target="_blank"><img style="height: 80px;" class="mx-2" src="/images/default/Science-Directs.png" alt="Science Direct"></a>
+        </div>
     </div>
-</section> -->
+</section>
 
 <?php if ($sysconf['template']['classic_map']) : ?>
 <section class="my-5 container">

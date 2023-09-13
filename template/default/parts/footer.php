@@ -51,8 +51,11 @@
                 <hr>
 
                 <p class="fw-bold mb-2"><?= __('Web Visitor'); ?></p>
-                <small class="d-block w-100"> Hari Ini : <b id="today"></b></small>
-                <small class="d-block w-100"> Seluruh : <b id="all"></b></small>
+                <div class="flex">
+                  <small class="d-block w-100"> Hari Ini : <b id="today"></b></small>
+                  <small class="d-block w-100"> Bulan Ini : <b id="month"></b></small>
+                  <small class="d-block w-100"> Seluruh : <b id="all"></b></small>
+                </div>
             </div>
             <div class="col-md-4 pt-8 md:pt-0">
                 <h4 class="mb-4"><?= __('Search'); ?></h4>
@@ -135,6 +138,7 @@ include LIB . "contents/chat.php"; ?>
     try {
       const result = await (await fetch('<?= SWB ?>?p=visitorcounterrest')).json();
       $('#today').text(result.today);
+      $('#month').text(result.month);
       $('#all').text(result.all);
     } catch (e) {
       console.error(e);
