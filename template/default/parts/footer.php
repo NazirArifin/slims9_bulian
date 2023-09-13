@@ -47,6 +47,12 @@
                 <p class="" style="font-size:13px">
                     <?= $sysconf['template']['classic_footer_about_us']; ?>
                 </p>
+
+                <hr>
+
+                <p class="fw-bold mb-2"><?= __('Web Visitor'); ?></p>
+                <small class="d-block w-100"> Hari Ini : <b id="today"></b></small>
+                <small class="d-block w-100"> Seluruh : <b id="all"></b></small>
             </div>
             <div class="col-md-4 pt-8 md:pt-0">
                 <h4 class="mb-4"><?= __('Search'); ?></h4>
@@ -66,7 +72,7 @@
                         </div>
                     </div>
                 </form>
-                <hr>
+                <!-- <hr> -->
                 <!-- <a target="_blank" title="Support Us" class="btn btn-outline-success mb-2"
                    href="https://slims.web.id/web/pages/support-us/"><i
                             class="fas fa-heart mr-2"></i><?= __('Keep SLiMS Alive'); ?></a>
@@ -123,5 +129,18 @@ include LIB . "contents/chat.php"; ?>
         })
     </script>
 <?php endif; ?>
+
+<script>
+  (async function() {
+    try {
+      const result = await (await fetch('<?= SWB ?>?p=visitorcounterrest')).json();
+      $('#today').text(result.today);
+      $('#all').text(result.all);
+    } catch (e) {
+      console.error(e);
+    }
+  })()
+</script>
+
 </body>
 </html>

@@ -295,6 +295,8 @@ class Opac
             // Load common SLiMS variable
             require LIB.'contents/common.inc.php';
             $main_content = ob_get_clean();
+
+            \SLiMS\Plugins::getInstance()->execute('after_content_load');
         // }
 
         // parse into template

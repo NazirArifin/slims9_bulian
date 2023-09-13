@@ -28,6 +28,7 @@ plugins/*
 !plugins/bebas_pustaka/
 !plugins/skripsi/
 !plugins/login_simat/
+!plugins/visitorwebcounter/
 
 template/*
 
