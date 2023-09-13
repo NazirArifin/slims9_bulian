@@ -89,7 +89,8 @@ if (isset($_POST['saveData']) && $can_read) {
   }
 
   // cari di skripsi hanya jika checkingOptions contains skripsi
-  if (isset($_POST['checkingOptions']) && in_array('skripsi', $_POST['checkingOptions'])) {
+  // if (isset($_POST['checkingOptions']) && in_array('skripsi', $_POST['checkingOptions'])) {
+  if ($reason == 'ijazah') {
     $sql_string = 'SELECT id, is_valid FROM skripsi WHERE member_id = "' . $memberID . '" LIMIT 1';
     $result = $dbs->query($sql_string);
     // jika tidak ada skripsi yang diupload, maka tidak perlu dicek
@@ -104,8 +105,18 @@ if (isset($_POST['saveData']) && $can_read) {
       die();
     }
   }
+
+  $completeReason = '';
+  switch ($reason) {
+    case 'bss':
+      $completeReason = 'Berhenti Studi Sementara (BSS)'; break;
+    case 'bst':
+      $completeReason = 'Berhenti Studi Tetap (BST)'; break;
+    case 'ijazah':
+      $completeReason = 'Pengambilan Ijazah'; break;
+  }
   
-  $sql_string = 'INSERT INTO free_loan (member_id, academic_year, reason, created_at) VALUES ("' . $memberID . '", "' . $academicYear . '", "' . $reason . '", "' . date('Y-m-d H:i:s') . '")';
+  $sql_string = 'INSERT INTO free_loan (member_id, academic_year, reason, created_at) VALUES ("' . $memberID . '", "' . $academicYear . '", "' . $completeReason . '", "' . date('Y-m-d H:i:s') . '")';
   $dbs->query($sql_string);
   $error = $dbs->error;
   if ($error) {
@@ -214,17 +225,20 @@ if (isset($_GET['do']) && $_GET['do'] == 'add') {
   // alasan
   // $form->addTextField('textarea', 'reason', __('Reason') . '*', '', 'class="form-control col-8"');
   $form->addSelectList('reason', __('Reason') . '*', [
-    '' => __('Select Reason'),
-    'bss' => __('Temporary Studi Suspension (BSS)'),
-    'bst' => __('Permanently Stop Studying (BST)'),
-    'ijazah' => __('Graduation Certificate Retrieval (Ijazah)')
+    [0 => '', 1 => __('Select Reason')],
+    [0 => 'bss', 1 => __('Temporary Studi Suspension (BSS)')],
+    [0 => 'bst', 1 => __('Permanently Stop Studying (BST)')],
+    [0 => 'ijazah', 1 => __('Graduation Certificate Retrieval (Ijazah)')]
   ], '', 'class="form-control col-4"');
+
+  // jika untuk pengambilan ijazah, maka munculkan pesan pengecekan apakah skripsi/tesis sudah diverifikasi
+  $form->addAnything('Note*', '<div class="col-12"><small>' . __('If the reason is for graduation certificate retrieval, please make sure that the thesis has been verified by the admin') . '</small></div>');
   
   // pengecekan apakah di loan atau juga di upload skripsi/tesis
-  $form->addCheckBox('checkingOptions', __('Loan Checking'), [
-    ['loan', __('Loan')],
-    ['skripsi', __('Skripsi/Tesis')]
-  ], 'loan', 'items for checking');
+  // $form->addCheckBox('checkingOptions', __('Loan Checking'), [
+  //   ['loan', __('Loan')],
+  //   ['skripsi', __('Skripsi/Tesis')]
+  // ], 'loan', 'items for checking');
   
   echo $form->printOut();
   die();
