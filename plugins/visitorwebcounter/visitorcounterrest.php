@@ -41,4 +41,5 @@ $Month = $WeekState->rowCount();
 $AllAccess = $Instance->query('select count(uniqueuserid) from `vistor_log` group by uniqueuserid');
 $All = $AllAccess->rowCount();
 
-jsonResponse(createCache(['expire' => strtotime((date('Y-m-d H:i:s', strtotime('+5 minutes')))), 'all' => $All, 'today' => $Today, 'week' => $Week, 'month' => $Month], $CachePath));
+// jsonResponse(createCache(['expire' => strtotime((date('Y-m-d H:i:s', strtotime('+5 minutes')))), 'all' => $All, 'today' => $Today, 'week' => $Week, 'month' => $Month], $CachePath));
+jsonResponse(['expire' => strtotime((date('Y-m-d H:i:s', strtotime('+5 minutes')))), 'all' => $All, 'today' => $Today, 'week' => $Week, 'month' => $Month]);
