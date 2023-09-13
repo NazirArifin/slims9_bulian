@@ -65,6 +65,16 @@ $stat_data = $stat_query->num_rows;
 $collection_stat[__('Total Titles with items')] = $stat_data.__(' (only titles that have items)');
 $collection_stat[__('Total Titles without items')] = ($total_title_all - $stat_data).__(' (only titles that haven\'t items)');
 
+// total number grant and buy based on source field in biblio table
+// the value of source field is 1/NULL for buy and 2 for grant
+$stat_query = $dbs->query('SELECT COUNT(biblio_id) FROM biblio WHERE source IS NULL OR source=1');
+$stat_data = $stat_query->fetch_row();
+$collection_stat[__('Total Titles (Buy)')] = $stat_data[0];
+// $stat_query = $dbs->query('SELECT COUNT(biblio_id) FROM biblio WHERE source=2');
+// $stat_data = $stat_query->fetch_row();
+// $collection_stat[__('Total Titles (Grant)')] = $stat_data[0];
+$collection_stat[__('Total Titles (Grant)')] = $total_title_all - $stat_data[0];
+
 // total number of items
 $stat_query = $dbs->query('SELECT item.item_code FROM item,biblio WHERE item.biblio_id=biblio.biblio_id');
 $stat_data = $stat_query->num_rows;
