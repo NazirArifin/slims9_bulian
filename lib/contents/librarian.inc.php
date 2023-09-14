@@ -35,6 +35,9 @@ $opac->page_title = __('Profile of our Librarian') ;
 $librarian_q = $dbs->query('SELECT * FROM user WHERE user_type IN (1,2) ORDER BY user_type DESC LIMIT 20');
 if ($librarian_q->num_rows > 0) {
   while ($librarian = $librarian_q->fetch_assoc()) {
+    if (strpos(strtolower($librarian['realname']), 'admin') !== false) {
+      continue;
+    }
     echo '<div class="row-fluid librarian">';
     echo '<div class="span2">';
     if ($librarian['user_image']) {

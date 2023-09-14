@@ -122,6 +122,19 @@ if (isset($_POST['saveData']) && $can_read) {
   if ($error) {
     die('SQL ERROR : ' . $error);
   }
+
+  // update status keanggotaan jika bst dan ijazah menjadi non-aktif
+  // dilakukan dengan mengeset member.expire_date menjadi tanggal hari ini
+  if ($reason == 'bst' || $reason == 'ijazah') {
+    $sql_string = 'UPDATE member SET expire_date = "' . date('Y-m-d') . '" WHERE member_id = "' . $memberID . '"';
+    $dbs->query($sql_string);
+    $error = $dbs->error;
+    if ($error) {
+      die('SQL ERROR : ' . $error);
+    }
+  }
+
+
   toastr(__('Data saved'))->success();
   // change content of #mainContent from $_SERVER['PHP_SELF'] . '?' . httpQuery(['do' => 'add']) to $_SERVER['PHP_SELF'] . '?' . httpQuery()
   echo '<script type="text/javascript">parent.$(\'#mainContent\').simbioAJAX(\'' . $_SERVER['PHP_SELF'] . '?' . httpQuery() . '\');</script>';
