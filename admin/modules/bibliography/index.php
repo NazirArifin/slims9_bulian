@@ -965,6 +965,10 @@ if (isset($_GET['action']) && $_GET['action'] == 'history') {
     $form->addTextField('text', 'collation', __('Collation'), $rec_d['collation'] ?? '', 'class="form-control" style="width: 40%;"', __('Physical description of a publication e.g. publication length, width, page numbers, etc.'));
     // biblio series title
     $form->addTextField('textarea', 'seriesTitle', __('Series Title'), $rec_d['series_title'] ?? '', 'rows="1" class="form-control');
+    
+    // e-ddc
+    $form->addAnything(__('E-DDC'), '<a class="notAJAX button btn btn-default openPopUp" href="/admin/modules/bibliography/pop_ddc.php?biblioID=" title="e-DDC for SLiMS © 2015" height="600" width="850">e-DDC</a> Search Classification Number with Quick e-DDC');
+    
     // biblio classification
     $cls_options[] = array('NONE', '');
     if (isset($rec_d['classification'])) {
