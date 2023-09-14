@@ -8,11 +8,11 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, post-check=0, pre-check=0" />
     <meta http-equiv="Expires" content="Sat, 26 Jul 1997 05:00:00 GMT" />
-    <link rel="stylesheet" type="text/css" href="<?php echo SWB; ?>template/default/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo SWB; ?>template/default/assets/css/bootstrap3.min.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo SWB; ?>template/default/assets/css/ddc.css" />
     <?php if (isset($css)) { echo $css; } ?>
         <script src="<?php echo SWB; ?>template/default/assets/js/jquery.min.js"></script>
-        <script src="<?php echo SWB; ?>template/default/assets/js/bootstrap.min.js"></script>
+        <script src="<?php echo SWB; ?>template/default/assets/js/bootstrap3.min.js"></script>
         <script src="<?php echo SWB; ?>template/default/assets/js/dataTables.searchHighlight.min.js"></script>
         <script src="<?php echo SWB; ?>template/default/assets/js/jquery.dataTables.min.js"></script>
         <script src="<?php echo SWB; ?>template/default/assets/js/dataTables.bootstrap.js"></script>
@@ -105,7 +105,7 @@
     </script>
     <script type="text/javascript">
         $(function () {
-            $('a[href*=#top]:not([href=#])').click(function () {
+            $('a[href*=\\#top]:not([href=\\#])').click(function () {
                 if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
                     var target = $(this.hash);
                     target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
