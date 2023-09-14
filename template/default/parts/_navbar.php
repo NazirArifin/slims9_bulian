@@ -30,7 +30,7 @@ $main_menus = [
 ];
 ?>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+<nav class="navbar navbar-expand-lg navbar-dark shadow-lg" style="background-color: rgba(52, 58, 64, 0.6);">
     <a class="navbar-brand inline-flex items-center" href="index.php">
         <?php
         if(isset($sysconf['logo_image']) && $sysconf['logo_image'] != '' && file_exists('images/default/'.$sysconf['logo_image'])){
@@ -78,7 +78,7 @@ $main_menus = [
             }
             $menu_str = <<<HTML
 <li class="nav-item {$active}">
-    <a class="nav-link" href="{$main_menu['url']}">{$main_menu['text']}</a>
+    <a class="nav-link text-white" href="{$main_menu['url']}">{$main_menu['text']}</a>
 </li>
 HTML;
             echo $menu_str;
@@ -115,7 +115,7 @@ HTML;
               </li>
           <?php } else { ?>
               <li class="nav-item <?= $menu_member_active; ?>">
-                  <a class="nav-link" href="index.php?p=member"><?= __('Member Area') ?></a>
+                  <a class="nav-link text-white" href="index.php?p=member"><?= __('Member Area') ?></a>
               </li>
           <?php } ?>
             <li class="nav-item dropdown">
