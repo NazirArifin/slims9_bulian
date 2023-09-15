@@ -93,7 +93,7 @@ $plugin->registerHook('membership_init', function() {
   $data['last_update'] = date('Y-m-d');
   $data['mpasswd'] = password_hash($password, PASSWORD_BCRYPT);
 
-  // jika $type == 'mhs', maka kita cek di tabel member
+  // jika $type == 'mhs'
   if ($type == 'mhs') {
     // attributes['status'] harus 'aktif' / 'lulus' / 'bss'
     $allowedStatus = ['aktif', 'lulus', 'bss'];
@@ -104,8 +104,14 @@ $plugin->registerHook('membership_init', function() {
 
     $data['member_type_id'] = 1;
     $data['gender'] = $json['data']['attributes']['jenisKelamin'] == 'L' ? 1 : '0';
+
+    // jika status == 'lulus' dan statusIjazah = 4 (sudah diambil) maka set expire_date = today - 1
+    if ($json['data']['attributes']['status'] == 'lulus' && $json['data']['attributes']['statusIjazah'] == 4) {
+      $data['expire_date'] = date('Y-m-d', strtotime('-1 day'));
+    }
   }
-  // jika $type == 'dkr', maka kita cek di tabel member
+  
+  // jika $type == 'dkr'
   if ($type == 'dkr') {
     $data['member_type_id'] = 2;
     $data['gender'] = 1;
