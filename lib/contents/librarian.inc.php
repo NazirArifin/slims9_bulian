@@ -41,6 +41,10 @@ if ($librarian_q->num_rows > 0) {
     echo '<div class="row-fluid librarian">';
     echo '<div class="span2">';
     if ($librarian['user_image']) {
+      // check apakah file gambar ada
+      if (!file_exists(SWB.'images/persons/'.$librarian['user_image'])) {
+        $librarian['user_image'] = 'person.png';
+      }
       echo '<div class="librarian-image"><img src="'.SWB.'images/persons/'.$librarian['user_image'].'" alt="'.$librarian['realname'].'" /></div>';
     } else {
       echo '<div><img src="'.SWB.'images/persons/person.png" alt="'.$librarian['realname'].'" /></div>';
