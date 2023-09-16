@@ -31,6 +31,8 @@ if (!defined('INDEX_AUTH')) {
 // $info = __('Profile of our Librarian');
 $opac->page_title = __('Profile of our Librarian') ;
 
+$currentWorkingDir = getcwd();
+
 // query librarian data
 $librarian_q = $dbs->query('SELECT * FROM user WHERE user_type IN (1,2) ORDER BY user_type DESC LIMIT 20');
 if ($librarian_q->num_rows > 0) {
@@ -42,7 +44,7 @@ if ($librarian_q->num_rows > 0) {
     echo '<div class="span2">';
     if ($librarian['user_image']) {
       // check apakah file gambar ada
-      if (!file_exists(SWB.'images/persons/'.$librarian['user_image'])) {
+      if (!file_exists($currentWorkingDir . SWB.'images/persons/'.$librarian['user_image'])) {
         $librarian['user_image'] = 'person.png';
       }
       echo '<div class="librarian-image"><img src="'.SWB.'images/persons/'.$librarian['user_image'].'" alt="'.$librarian['realname'].'" /></div>';
