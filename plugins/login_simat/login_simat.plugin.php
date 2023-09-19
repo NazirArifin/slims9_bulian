@@ -74,14 +74,14 @@ $plugin->registerHook('membership_init', function() {
   $row = $result->fetch_assoc();
 
   $data['member_id'] = $idUser;
-  $data['member_name'] = $json['data']['attributes']['nama'];
+  $data['member_name'] = addslashes($json['data']['attributes']['nama']);
   $data['inst_name'] = 'Universitas Madura';
   $data['birth_date'] = implode('-', array_reverse(explode('/', $json['data']['attributes']['lahirtanggal'])));
   $data['register_date'] = date('Y-m-d');
   $data['expire_date'] = simbio_date::getNextDate(5000, $data['register_date']);
   $data['member_since_date'] = $data['register_date'];
   $data['pin'] = $password;
-  $data['member_address'] = $json['data']['attributes']['alamat'];
+  $data['member_address'] = addslashes($json['data']['attributes']['alamat']);
   $data['member_mail_address'] = $json['data']['attributes']['email'];
   $data['member_phone'] = $json['data']['attributes']['telepon'];
   $data['member_fax'] = '';
