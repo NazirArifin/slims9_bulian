@@ -527,18 +527,20 @@ if (isset($_POST['memberID']) OR isset($_SESSION['memberID'])) {
         if (strtolower($member->member_type_name) == 'mahasiswa') {
           echo '<tr>'."\n";
           echo '<td class="alterCell" width="15%"><strong>'.__('Status').'</strong></td><td class="alterCell2" width="30%">' . $member->member_type_name .  '</td>';
-          echo '<td class="alterCell" width="15%"><strong>'.__('Prodi').'</strong></td><td class="alterCell2" width="30%">INFORMATIKA</td>';
+          // echo '<td class="alterCell" width="15%"><strong>'.__('Prodi').'</strong></td><td class="alterCell2" width="30%">INFORMATIKA</td>';
+          echo '<td class="alterCell" width="15%"><strong>'.__('Register Date').'</strong></td><td class="alterCell2" width="30%">'.$member->register_date.'</td>';
           echo '</tr>'."\n";
         }
+
         echo '<tr>'."\n";
         echo '<td class="alterCell" width="15%"><strong>'.__('Member Email').'</strong></td><td class="alterCell2" width="30%">'.$member->member_email.'</td>';
         echo '<td class="alterCell" width="15%"><strong>'.__('Member Type').'</strong></td><td class="alterCell2" width="30%">'.$member->member_type_name.'</td>';
         echo '</tr>'."\n";
         
-        if (strtolower($member->member_type_name != 'mahasiswa')) {
-          echo '<tr>'."\n";
-          echo '<td class="alterCell" width="15%"><strong>'.__('Register Date').'</strong></td><td class="alterCell2" width="30%">'.$member->register_date.'</td>';
-        }
+        // if (strtolower($member->member_type_name != 'mahasiswa')) {
+        //   echo '<tr>'."\n";
+        //   echo '<td class="alterCell" width="15%"><strong>'.__('Register Date').'</strong></td><td class="alterCell2" width="30%">'.$member->register_date.'</td>';
+        // }
           // give notification about expired membership and pending
         $expire_msg = '';
         if ($_SESSION['is_expire']) {
@@ -546,6 +548,7 @@ if (isset($_POST['memberID']) OR isset($_SESSION['memberID'])) {
         }
         if (strtolower($member->member_type_name) != 'mahasiswa') {
           echo '<td class="alterCell" width="15%"><strong>'.__('Expiry Date').'</strong></td><td class="alterCell2" width="30%">'.$member->expire_date.' '.$expire_msg.'</td>';
+          echo '<td class="alterCell" width="15%"><strong>'.__('Register Date').'</strong></td><td class="alterCell2" width="30%">'.$member->register_date.'</td>';
           echo '</tr>'."\n";
         }
         // member notes and pending information
