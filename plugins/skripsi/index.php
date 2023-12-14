@@ -5,6 +5,10 @@
  * @Filename        : index.php
  */
 
+use \Google\Client;
+use \Google\Service\Drive;
+use \Google\Service\Drive\DriveFile;
+use \Google\Service\Drive\Permission;
 use SLiMS\Plugins;
 
 defined('INDEX_AUTH') OR die('Direct Access Not Allowed!');
@@ -38,6 +42,53 @@ function httpQuery($query = []) {
   return http_build_query(array_unique(array_merge($_GET, $query)));
 }
 
+// upload skripsi to drive
+if (isset($_GET['do']) && $_GET['do'] == 'backup') {
+  $result = $dbs->query('SELECT * FROM skripsi WHERE is_valid = 1');
+  $skripsi = [];
+  while ($row = $result->fetch_assoc()) {
+    $skripsi[] = $row['file'];
+  }
+
+  // create google service
+  try {
+    putenv('GOOGLE_APPLICATION_CREDENTIALS=' . __DIR__ . '/config/credentials.json');
+    $client = new Google_Client();
+    $client->useApplicationDefaultCredentials();
+    $client->addScope(Drive::DRIVE);
+    $service = new Drive($client);
+
+    // get folder id
+    $files = [];
+    $pagetoken = null;
+    do {
+      $response = $service->files->listFiles([
+        'q' => 'name = \'Skripsi\' and mimeType = \'application/vnd.google-apps.folder\'',
+        'pageToken' => $pagetoken,
+        'spaces' => 'drive',
+        'fields' => 'nextPageToken, files(id, name)',
+      ]);
+      $files = array_merge($files, $response->getFiles());
+      $pagetoken = $response->getNextPageToken();
+    } while ($pagetoken != null);
+    $folder_id = $files[0]->getId();
+
+    // upload skripsi
+    foreach ($skripsi as $file) {
+      $fileMetadata = new DriveFile([
+        'name' => $file,
+        'parents' => [$folder_id],
+      ]);
+      // $content = file_get_contents(__DIR__ . '/files/' . $file);
+      echo __DIR__;
+    }
+
+  } catch (Exception $e) {
+    echo $e->getMessage();
+    utility::jsToastr(__('Gagal membuat service Google Drive'), 'Gagal membuat service Google Drive', 'error');
+  }
+}
+
 // delete skripsi
 if (isset($_GET['do']) && $_GET['do'] == 'delete' && isset($_GET['mid'])) {
   $dbs->query('UPDATE skripsi SET is_valid = 2 WHERE member_id = \'' . $dbs->escape_string($_GET['mid']) . '\'');
@@ -65,6 +116,13 @@ function updateSkripsi(url) {
   }
   parent.$('#mainContent').simbioAJAX(url);
 }
+
+function backupSkripsi() {
+  if (! confirm('Apakah anda yakin akan membackup data skripsi?')) {
+    return;
+  }
+  parent.$('#mainContent').simbioAJAX(current + '&do=backup');
+}
   </script>
 
   <div class="menuBox">
@@ -72,11 +130,15 @@ function updateSkripsi(url) {
       <div class="per_title">
         <h2><?php echo __('Skripsi/Tesis') ?></h2>
       </div>
-      <div class="sub_section">
+      <div class="sub_section" style="display: flex;justify-content: space-between;">
         <form name="search" action="<?php echo $_SERVER['PHP_SELF'] . '?' . httpQuery() ?>" id="search" method="get" class="form-inline">Cari Member 
-          <input type="text" name="keywords" value="" class="form-control col-md-3" placeholder="NIM / Nama Anggota">
+          <input type="text" name="keywords" value="" style="min-width: 200px;" class="form-control col-md-3" placeholder="NIM / Nama Anggota">
           <input type="submit" id="doSearch" value="<?php echo __('Search') ?>" class="s-btn btn btn-default">
         </form>
+
+        <div class="btn btn-info" onclick="backupSkripsi()">
+          <i class="fa fa-upload"></i> Backup Skripsi
+        </div>
       </div>
     </div>
   </div>
