@@ -118,18 +118,15 @@ $plugin->registerHook('membership_init', function() {
   }
 
   // download image and then save to
-  $client->get('https://api.unira.ac.id/' . $json['data']['attributes']['thumbnail'], ['sink' => 'images/persons/member_' . $idUser . '.jpg']);
-  $data['member_image'] = 'member_' . $idUser . '.jpg';
-
-  // $filename = 'images/persons/member_' . $idUser . '.jpg';
-  // if (! file_exists($filename)) {  
-  //   $client->get('https://api.unira.ac.id/' . $json['data']['attributes']['thumbnail'], ['sink' => $filename]);
-  //   if (file_exists($filename)) {
-  //     $data['member_image'] = basename($filename);
-  //   }
-  // } else {
-  //   $data['member_image'] = basename($filename);
-  // }
+  $filename = 'images/persons/member_' . $idUser . '.jpg';
+  if (! file_exists($filename)) {  
+    $client->get('https://api.unira.ac.id/' . $json['data']['attributes']['thumbnail'], ['sink' => $filename]);
+    if (file_exists($filename)) {
+      $data['member_image'] = basename($filename);
+    }
+  } else {
+    $data['member_image'] = basename($filename);
+  }
 
   // create sql op object
   $sql_op = new simbio_dbop($dbs);
