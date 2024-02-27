@@ -84,7 +84,7 @@ class SkripsiController extends Controller {
             'data' => [
                 'total' => intval($totalAll),
                 'verified' => intval($verifiedAll),
-                'new' => $total - $verifiedAll,
+                'new' => intval($totalAll) - intval($verifiedAll),
                 'prodi' => $prodi
             ]
         ]);
