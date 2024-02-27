@@ -93,18 +93,25 @@ class SkripsiController extends Controller {
     // fetch prodi with curl
     function fetchProdi() {
       $url = 'https://api.unira.ac.id/v1/prodi';
-      $ch = curl_init($url);
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+      // $ch = curl_init($url);
+      // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
-      $response = curl_exec($ch);
+      // $response = curl_exec($ch);
 
-      if (curl_errno($ch)) {
-        echo 'Error:' . curl_error($ch);
-      }
+      // if (curl_errno($ch)) {
+      //   echo 'Error:' . curl_error($ch);
+      // }
 
-      curl_close($ch);
+      // curl_close($ch);
 
+      // $decodedResponse = json_decode($response, true);
+
+      // if (json_last_error() !== JSON_ERROR_NONE) {
+      //   echo 'Decoding Error: ' . json_last_error_msg();
+      // }
+
+      $response = file_get_contents($url);
       $decodedResponse = json_decode($response, true);
 
       if (json_last_error() !== JSON_ERROR_NONE) {
