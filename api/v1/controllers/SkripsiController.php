@@ -24,7 +24,7 @@ class SkripsiController extends Controller {
         $totalAll = ($query->fetch_row())[0];
         
         // verified jika is_valid = 2
-        $query = $this->db->query("SELECT COUNT(id) FROM skripsi WHERE is_valid = 2");
+        $query = $this->db->query("SELECT COUNT(id) FROM skripsi WHERE is_valid = 1");
         $verifiedAll = ($query->fetch_row())[0];
 
         // fetch data prodi di https://api.unira.ac.id/v1/prodi
@@ -58,10 +58,10 @@ class SkripsiController extends Controller {
         }
 
         // get total verified skripsi per prodi
-        $queryVerified = $this->db->query("SELECT COUNT(id), SUBSTRING(member_id, 5, 2) FROM skripsi WHERE is_valid = 2 GROUP BY SUBSTRING(member_id, 5, 2)");
+        $queryVerified = $this->db->query("SELECT COUNT(id), SUBSTRING(member_id, 5, 2) FROM skripsi WHERE is_valid = 1 GROUP BY SUBSTRING(member_id, 5, 2)");
 
         // get total unverified skripsi per prodi
-        $queryUnVerified = $this->db->query("SELECT COUNT(id), SUBSTRING(member_id, 5, 2) FROM skripsi WHERE is_valid != 2 GROUP BY SUBSTRING(member_id, 5, 2)");
+        $queryUnVerified = $this->db->query("SELECT COUNT(id), SUBSTRING(member_id, 5, 2) FROM skripsi WHERE is_valid != 1 GROUP BY SUBSTRING(member_id, 5, 2)");
 
         while ($row = $queryVerified->fetch_row()) {
             $prodi_id = $row[1];
