@@ -21,11 +21,11 @@ class SkripsiController extends Controller {
 
     function getTotalSkripsi() {
         $query = $this->db->query("SELECT COUNT(id) FROM skripsi");
-        $total = ($query->fetch_row())[0];
-
+        $totalAll = ($query->fetch_row())[0];
+        
         // verified jika is_valid = 2
         $query = $this->db->query("SELECT COUNT(id) FROM skripsi WHERE is_valid = 2");
-        $verified = ($query->fetch_row())[0];
+        $verifiedAll = ($query->fetch_row())[0];
 
         // fetch data prodi di https://api.unira.ac.id/v1/prodi
         $prodi = $this->fetchProdi();
@@ -82,9 +82,9 @@ class SkripsiController extends Controller {
         
         parent::withJson([
             'data' => [
-                'total' => $total,
-                'verified' => $verified,
-                'new' => $total - $verified,
+                'total' => intval($totalAll),
+                'verified' => intval($verifiedAll),
+                'new' => $total - $verifiedAll,
                 'prodi' => $prodi
             ]
         ]);
