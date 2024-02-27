@@ -1,1 +1,0 @@
-- folder images must be writeable by the web server

@@ -275,6 +275,51 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
                 </div>
             </div>
         </div>
+
+        <div class="row mb-3 mt-1">
+            <div class="col col-md-8">
+                <div class="card border-0">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo __('Statistik Skripsi') ?></h5>
+                        <table class="table">
+                            <tr>
+                                <td class="text-left"><i class="fa fa-square"
+                                                         style="color:#f2f2f2;"></i>&nbsp;&nbsp;<?php echo __('Total') ?>
+                                </td>
+                                <td class="text-right skripsi_total">0</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left"><i class="fa fa-square"
+                                                         style="color:#06B1CD;"></i>&nbsp;&nbsp;<?php echo __('Verified') ?>
+                                </td>
+                                <td class="text-right skripsi_verified">0</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left"><i class="fa fa-square"
+                                                         style="color:#F4CC17;"></i>&nbsp;&nbsp;<?php echo __('Unverified') ?>
+                                </td>
+                                <td class="text-right skripsi_new">0</td>
+                            </tr>
+                        </table>
+
+                        <!-- statistik per prodi -->
+                        <h5 class="card-title mt-3"><?php echo __('Statistik Per Prodi') ?></h5>
+                        <table class="table" id="table-skripsi">
+                          <thead>
+                            <tr>
+                              <th>Program Studi</th>
+                              <th>Total</th>
+                              <th><?php echo __('Verified') ?></th>
+                              <th><?php echo __('Unverified') ?></th>
+                            </tr>
+                          </thead>
+                          <tbody></tbody>
+                        </table>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
     <script src="<?php echo JWB ?>chartjs/Chart.min.js"></script>
@@ -406,6 +451,29 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
 
                     respondCanvas();
                 })
+            })
+
+            // ===================================
+            // statistik skripsi
+            // ===================================
+
+            fetch('<?= SWB ?>index.php?p=api/skripsi/total/all', {headers: {'SLiMS-Http-Cache': 'cache'}})
+            .then(res => res.json())
+            .then(res => {
+                $('.skripsi_total').text(new Intl.NumberFormat('id-ID').format(res.data.total));
+                $('.skripsi_verified').text(new Intl.NumberFormat('id-ID').format(res.data.verified));
+                $('.skripsi_new').text(new Intl.NumberFormat('id-ID').format(res.data.new));
+
+                res.data.prodi.forEach((item, index) => {
+                    $('#table-skripsi tbody').append(`
+                        <tr>
+                            <td>${item.nama}</td>
+                            <td>${new Intl.NumberFormat('id-ID').format(item.total)}</td>
+                            <td>${new Intl.NumberFormat('id-ID').format(item.verified)}</td>
+                            <td>${new Intl.NumberFormat('id-ID').format(item.new)}</td>
+                        </tr>
+                    `)
+                });
             })
         });
 

@@ -23,6 +23,7 @@ require __DIR__ . '/controllers/MemberController.php';
 require __DIR__ . '/controllers/SubjectController.php';
 require __DIR__ . '/controllers/ItemController.php';
 require __DIR__ . '/controllers/LoanController.php';
+require __DIR__ . '/controllers/SkripsiController.php';
 
 /*----------  Create router object  ----------*/
 $router = new Router($sysconf, $dbs);
@@ -46,6 +47,7 @@ $router->map('GET', '/item/total/available', 'ItemController@getTotalAvailable')
 $router->map('GET', '/loan/summary', 'LoanController@getSummary');
 $router->map('GET', '/loan/getdate/[*:start_date]', 'LoanController@getDate');
 $router->map('GET', '/loan/summary/[*:date]', 'LoanController@getSummaryDate');
+$router->map('GET', '/skripsi/total/all', 'SkripsiController@getTotalSkripsi');
 
 /*----------  Custom route based on hook plugin  ----------*/
 \SLiMS\Plugins::getInstance()->execute('custom_api_route', ['router' => $router]);
